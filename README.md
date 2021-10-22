@@ -16,16 +16,17 @@
    1. `composer require laravel/ui`
    1. `php artisan ui bootstrap --auth`
    1. run `npm install && npm run dev` **twice**
-   * alternatives to _laravel/ui_ are Laravel Breeze, Laravel JetStream
 1. Now you have your first Laravel application ready
    1. run `php artisan migrate` to create basic users table
    1. run `php artisan serve` to run the actual Lapp
    1. visit [http://127.0.0.1:8000/register](http://127.0.0.1:8000/register) to check if UI and AUTH are working and register a first user
 
+### Notes
+* Alternatives to [Laravel UI](https://github.com/laravel/ui) are Laravel Breeze, Laravel JetStream, but they are more complex
+* [Laravel UI](https://github.com/laravel/ui) provides simple AUTH logic, for more complex libraries visit Spatie/Permissions
 ----
-info here is just for safekeeping and not related to actual Lapp.
-## Git initialization ()
+## Git initialization
 1. `git init`
-1. `git remote add origin git@github.com:mklauco/pwa2-library.git`
+1. `git remote add origin INSERT-YOUR-GIT-LINK`
 1. `git branch -M main`
 1. `git push -u origin main`
