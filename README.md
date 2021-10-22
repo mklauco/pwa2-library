@@ -21,6 +21,12 @@
    1. run `php artisan serve` to run the actual Lapp
    1. visit [http://127.0.0.1:8000/register](http://127.0.0.1:8000/register) to check if UI and AUTH are working and register a first user
 
+## Initialize FREE CoreUI templating
+1. Visit [CoreUI](https://coreui.io/demo/free/3.4.0/)
+1. Visit [CoreUI templating](https://coreui.io/docs/layout/overview/)
+1. Create templates:
+   1. duplicate `layouts/app.blade` to `layouts/app-coreui.blade`
+
 ### Notes
 * Alternatives to [Laravel UI](https://github.com/laravel/ui) are Laravel Breeze, Laravel JetStream, but they are more complex
 * [Laravel UI](https://github.com/laravel/ui) provides simple AUTH logic, for more complex libraries visit Spatie/Permissions
