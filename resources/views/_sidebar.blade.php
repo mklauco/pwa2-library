@@ -5,9 +5,16 @@
 <ul class="c-sidebar-nav ps">
 
   <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="#">
+    <a class="c-sidebar-nav-link" href="{{route('home')}}">
       <i class="c-sidebar-nav-icon cil-speedometer"></i>
       Dashboard
+    </a>
+  </li>
+
+  <li class="c-sidebar-nav-item">
+    <a class="c-sidebar-nav-link {{ Request::is('books*') ? 'c-active' : '' }}" href="{{route('books.index')}}">
+      <i class="c-sidebar-nav-icon cil-folder-open"></i>
+      Books
     </a>
   </li>
 

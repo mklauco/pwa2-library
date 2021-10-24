@@ -1,6 +1,7 @@
 ## Prerequisites
 1. Install [Composer](http://getcomposer.org)
    * check if `composer -V` works in command line (PC restart may be required)
+   * composer may run out of memory, consider setting `memory_limit=-1` in `php.ini`
 1. Install [NPM manager](https://nodejs.org/en/download/)
    * check if `npm version` works in command line (PC restart may be required)
    * Install yarn `npm install --global yarn`
@@ -44,6 +45,19 @@
    ```
    4. Create specific `resources/view/_sidebar.blade.php` just for the sidebar links
    5. Create specific `resources/view/_header.blade.php` just for the contents header (*NOT* the HML header, that is in the `app-coreui.blade.php`)
+
+## Books MVC
+1. Create the BooksController `php artisan make:controller BooksController --resource`
+1. Add the `Route::resource('books', App\Http\Controllers\BooksController::class);` to the route `web.php` and verify with `php artisan route:list`
+   1. Setup `BooksController::index` with the `_sidebar` (duplicate `home.blade.php` to `books/index.blade.php`)
+   1. Setup `{{ Request::is('books*') ? 'c-active' : '' }}` in anchor class
+   1. Setup language file `resources/lang/en/books.php`
+1. Setup the Model with migration `php artisan make:model Books -m` and open `database/*_create_books_table.php`; fields: `['name', 'description', 'genre', 'autor']`
+   * run `php artisan migrate` to create the table in DB
+1. Before creating html forms install [HTML helper](https://laravelcollective.com/docs/6.x/html)
+   * Install `composer require laravelcollective/html` , if composer runs out of memory set `memory_limit=-1` in `php.ini`
+   * During deploying on server run `composer install` **never run** `composer update` (!) it may disrupt the dependencies
+
 
 ### Notes
 * Alternatives to [Laravel UI](https://github.com/laravel/ui) are Laravel Breeze, Laravel JetStream, but they are more complex
