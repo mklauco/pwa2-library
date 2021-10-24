@@ -1,43 +1,36 @@
-<ul class="c-sidebar-nav">
-  <li class="c-sidebar-nav-title">Nav Title</li>
+<div class="c-sidebar-brand d-lg-down-none">
+  PWA2 - LIBRARY
+</div>
+
+<ul class="c-sidebar-nav ps">
+
   <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link" href="#">
-      <i class="c-sidebar-nav-icon cil-speedometer"></i> Nav item
+      <i class="c-sidebar-nav-icon cil-speedometer"></i>
+      Dashboard
     </a>
   </li>
+
   <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link" href="#">
-      <i class="c-sidebar-nav-icon cil-speedometer"></i> With badge
-      <span class="badge badge-primary">NEW</span>
+      <i class="c-sidebar-nav-icon cil-user"></i>
+      Users
+      <span class="badge badge-info">NEW</span>
     </a>
   </li>
-  <li class="c-sidebar-nav-item nav-dropdown">
-    <a class="c-sidebar-nav-link nav-dropdown-toggle" href="#">
-      <i class="c-sidebar-nav-icon cil-puzzle"></i> Nav dropdown
-    </a>
-    <ul class="c-sidebar-nav-dropdown-items">
-      <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link" href="#">
-          <i class="c-sidebar-nav-icon cil-puzzle"></i> Nav dropdown item
-        </a>
-      </li>
-      <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link" href="#">
-          <i class="c-sidebar-nav-icon cil-puzzle"></i> Nav dropdown item
-        </a>
-      </li>
-    </ul>
-  </li>
-  <li class="c-sidebar-nav-item mt-auto">
-    <a class="c-sidebar-nav-link c-sidebar-nav-link-success" href="https://coreui.io">
-      <i class="c-sidebar-nav-icon cil-cloud-download"></i> Download CoreUI</a>
-    </li>
-    <li class="c-sidebar-nav-item">
-      <a class="c-sidebar-nav-link c-sidebar-nav-link-danger" href="https://coreui.io/pro/">
-        <i class="c-sidebar-nav-icon cil-layers"></i> Try CoreUI
-        <strong>PRO</strong>
-      </a>
-    </li>
-  </ul>
-  <button class="c-sidebar-minimizer c-brand-minimizer" type="button"></button>
   
+
+  
+  <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;">
+    </div>
+  </div>
+  <div class="ps__rail-y" style="top: 0px; right: 0px;">
+    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;">
+    </div>
+  </div>
+  
+</ul>
+<button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
+
+</div>
