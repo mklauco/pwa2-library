@@ -52,11 +52,41 @@
    1. Setup `BooksController::index` with the `_sidebar` (duplicate `home.blade.php` to `books/index.blade.php`)
    1. Setup `{{ Request::is('books*') ? 'c-active' : '' }}` in anchor class
    1. Setup language file `resources/lang/en/books.php`
-1. Setup the Model with migration `php artisan make:model Books -m` and open `database/*_create_books_table.php`; fields: `['name', 'description', 'genre', 'autor']`
+1. Setup the Model with migration `php artisan make:model Books -m` and open `database/*_create_books_table.php`; fields: `['name', 'description', 'genre', 'author']`
    * run `php artisan migrate` to create the table in DB
 1. Before creating html forms install [HTML helper](https://laravelcollective.com/docs/6.x/html)
    * Install `composer require laravelcollective/html` , if composer runs out of memory set `memory_limit=-1` in `php.ini`
    * During deploying on server run `composer install` **never run** `composer update` (!) it may disrupt the dependencies
+1. Secure form handling:
+   1. To securely handle form include in `<head>` CSRF token generator `<meta name="csrf-token" content="{{ csrf_token() }}">`
+   1. Visit [Validation rules](https://laravel.com/docs/8.x/validation#available-validation-rules)
+   1. Test the error bags `@if($errors->has('description')) .. @endif`
+   1. In `BooksController` insert 
+   ```php
+   $v = [
+      'name'          => 'required',
+      'genre'         => 'required',
+      'description'   => 'required',
+      'author'        => 'required',
+    ];
+    $validated = $request->validate($v);
+    
+    Books::create($request->all());
+    return redirect()->view('books.index'); // redirect is crucial
+   ```
+   1. In `App\Models\Books` insert fillable: `protected $fillable = ['name', 'description', 'genre', 'author'];`
+1. Prepare table view of all books.
+1. Add Session flashes
+   1. Add `use Session` in controller.
+   1. Add `Session::flash('success', __('books.saved'));` just before `return`. 
+   1. Add session viewer in `app-coreui.blade`, specifically
+   ```php
+   @if (Session::has('success'))
+     <div class="alert alert-success" role="alert">{!! Session::get('success') !!}</div>
+   @endif
+   ```
+<!-- 1. Add Edit/Copy/Delete functionality. -->
+
 
 
 ### Notes
