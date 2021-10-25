@@ -61,7 +61,7 @@
    1. To securely handle form include in `<head>` CSRF token generator `<meta name="csrf-token" content="{{ csrf_token() }}">`
    1. Visit [Validation rules](https://laravel.com/docs/8.x/validation#available-validation-rules)
    1. Test the error bags `@if($errors->has('description')) .. @endif`
-   1. In `BooksController` insert 
+   1. In `BooksController.store` insert 
    ```php
    $v = [
       'name'          => 'required',
@@ -72,7 +72,7 @@
     $validated = $request->validate($v);
     
     Books::create($request->all());
-    return redirect()->view('books.index'); // redirect is crucial
+    return redirect('books'); // redirect to general controller path is crucial
    ```
    1. In `App\Models\Books` insert fillable: `protected $fillable = ['name', 'description', 'genre', 'author'];`
 1. Prepare table view of all books.
