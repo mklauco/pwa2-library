@@ -30,7 +30,6 @@ class BooksController extends Controller
   public function create()
   {
     //
-    
     return view('books.create');
   }
   
@@ -76,6 +75,8 @@ class BooksController extends Controller
   public function edit($id)
   {
     //
+    $books = Books::find($id);
+    return view('books.edit')->with('books', $books);
   }
   
   /**
@@ -88,6 +89,9 @@ class BooksController extends Controller
   public function update(Request $request, $id)
   {
     //
+    Books::find($id)->update($request->all());
+    Session::flash('success', __('books.updated'));
+    return redirect('books');
   }
   
   /**
@@ -99,5 +103,8 @@ class BooksController extends Controller
   public function destroy($id)
   {
     //
+    Books::find($id)->delete();
+    Session::flash('success', __('books.deleted'));
+    return redirect('books');
   }
 }
