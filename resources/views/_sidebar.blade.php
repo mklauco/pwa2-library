@@ -12,6 +12,13 @@
   </li>
 
   <li class="c-sidebar-nav-item">
+    <a class="c-sidebar-nav-link" href="{{route('books.index')}}">
+      <i class="c-sidebar-nav-icon cil-folder-open"></i>
+      Books
+    </a>
+  </li>
+
+  <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link" href="#">
       <i class="c-sidebar-nav-icon cil-user"></i>
       Users
