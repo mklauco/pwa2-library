@@ -22,6 +22,7 @@
                   <th>{{__('books.description')}}</th>
                   <th>{{__('books.genre')}}</th>
                   <th>{{__('books.author')}}</th>
+                  <th colspan="2">{{__('books.actions')}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -31,6 +32,12 @@
                   <td>{{$b->description}}</td>
                   <td>{{$b->genre}}</td>
                   <td>{{$b->author}}</td>
+                  <td>{!! Html::linkRoute('books.edit', __('books.edit'), ['book' => $b->id], array('class' => 'theme-color' )) !!}</td>
+                  <td>
+                    {!! Form::open(array('route' => ['books.destroy', $b->id], 'method'=>'DELETE')) !!}
+                    {!! Form::submit(__('books.delete'), array('class' => 'btn btn-danger btn-ghost-danger my-0 py-0', 'onclick' => 'return confirm("You are about to delete the book.")' ))!!}
+                    {!! Form::close() !!}
+                  </td>
                 </tr>                  
                 @endforeach
               </tbody>

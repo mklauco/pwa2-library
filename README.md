@@ -57,6 +57,16 @@
 1. Before creating html forms install [HTML helper](https://laravelcollective.com/docs/6.x/html)
    * Install `composer require laravelcollective/html` , if composer runs out of memory set `memory_limit=-1` in `php.ini`
    * During deploying on server run `composer install` **never run** `composer update` (!) it may disrupt the dependencies
+1. Create your first form `books/create.balde.php`, that is linked from the `books/index`.
+1. Form field are included via `laravelcollective/html` package (it is optional but recommended)
+   1. Sample of the form (used in `books/create.blade.php`)
+   ```php
+   {!! Form::open(array('route' => 'books.store')) !!}
+   {{ Form::label('name', __('books.name')) }}:
+   {{ Form::text('name', '', ['class' => 'form-control']) }}
+   {{ Form::submit('Submit', array('class' => 'btn btn-sm btn-primary')) }}
+   {!! Form::close() !!}
+   ```
 1. Secure form handling:
    1. To securely handle form include in `<head>` CSRF token generator `<meta name="csrf-token" content="{{ csrf_token() }}">`
    1. Visit [Validation rules](https://laravel.com/docs/8.x/validation#available-validation-rules)
@@ -72,7 +82,7 @@
     $validated = $request->validate($v);
     
     Books::create($request->all());
-    return redirect('books'); // redirect to general controller path is crucial
+    return redirect('books'); // redirect to general controller path is crucial after Store/Update paths
    ```
    1. In `App\Models\Books` insert fillable: `protected $fillable = ['name', 'description', 'genre', 'author'];`
 1. Prepare table view of all books.
@@ -85,6 +95,46 @@
      <div class="alert alert-success" role="alert">{!! Session::get('success') !!}</div>
    @endif
    ```
+1. Add Edit path:
+   1. Include edit link in the `books/index.blade.php` using `laravelcollective/html` method, namely:
+   ```php
+   {!! Html::linkRoute('books.edit', __('books.edit'), ['book' => $b->id], array('class' => 'theme-color' )) !!}
+   ```
+   watch-out for the `'book' => $b->id`, which specify which book you want to edit.
+   1. Continue in `public function edit($id)` and prepare and edit form
+      1. duplicate `books/create.blade.php` and create `edit.blade.php`
+      1. Change the form opening to:
+      ```php
+      {!! Form::model($books, ['route' => ['books.update', $books->id], 'method' => 'PUT']) !!}
+      ```
+      1. include `$book->*FIELD*` as form values
+1. Fill the `lang/en/books` file
+1. Add delete method
+   1. Deletes are accessed via forms:
+   ```php
+   {!! Form::open(array('route' => ['books.destroy', $b->id], 'method'=>'DELETE')) !!}
+   {!! Form::submit(__('books.delete'), array('class' => 'btn btn-danger btn-ghost-danger my-0 py-0', 'onclick' => 'return confirm("You are about to delete the book.")' ))!!}
+   {!! Form::close() !!}
+   ```
+   1. In `BooksController/destroy` add `Books::find($id)->delete();` note, that such a method permanently deletes the record from db.
+   1. Add soft-delete feature to the `Books` model
+      1. visit [Soft deletes](https://laravel.com/docs/8.x/eloquent#soft-deleting)
+      1. include `use SoftDeletes;` in the class and `use Illuminate\Database\Eloquent\SoftDeletes;` in definition of  the `Books` model
+      1. add soft-delete to `books` table
+      1. run `php artisan make:migration add_soft_delete_books --table=books`
+      1. include
+      ```php
+         Schema::table('books', function (Blueprint $table) {
+            $table->softDeletes();
+         });
+
+         Schema::table('books', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+         });
+      ```
+
+
+
 <!-- 1. Add Edit/Copy/Delete functionality. -->
 
 

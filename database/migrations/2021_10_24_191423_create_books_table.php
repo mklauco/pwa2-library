@@ -18,7 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('name')->default(null)->nullable();
             $table->text('description')->default(null)->nullable();
             $table->string('genre')->default(null)->nullable();
-            $table->string('author')->default(null)->nullable();
+            $table->integer('author')->default(null)->nullable();
             $table->timestamps();
         });
     }
