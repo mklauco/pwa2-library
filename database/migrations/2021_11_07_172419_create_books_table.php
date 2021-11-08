@@ -13,7 +13,7 @@ class CreateBooksTable extends Migration
      */
     public function up()
     {
-        Schema::table('books', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             //
             $table->id();
             $table->string('name')->default(null)->nullable();
