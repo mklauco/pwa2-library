@@ -46,7 +46,7 @@ class BooksController extends Controller
       'name'          => 'required',
       'genre'         => 'required',
       'description'   => 'required',
-      'author'        => 'required',
+      'author'        => 'required|numeric',
     ];
     $validated = $request->validate($v);
     
@@ -89,6 +89,14 @@ class BooksController extends Controller
   public function update(Request $request, $id)
   {
     //
+    $v = [
+      'name'          => 'required',
+      'genre'         => 'required',
+      'description'   => 'required',
+      'author'        => 'required|numeric',
+    ];
+    $validated = $request->validate($v);
+
     Books::find($id)->update($request->all());
     Session::flash('success', __('books.updated'));
     return redirect('books');
