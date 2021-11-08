@@ -14,40 +14,25 @@
           
           <div class="row">
             <div class="col-sm-12">
-              <div class="form-group">
-                {{ Form::label('name', __('books.name')) }}:
-                {{ Form::text('name', $books->name, ['class' => 'form-control']) }}
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="form-group">
-                {{ Form::label('genre', __('books.genre')) }}:
-                {{ Form::text('genre', $books->genre, ['class' => 'form-control']) }}
-              </div>
+              @include('templates.form-text', ['space' => 'books', 'tag' => 'name'])
             </div>
           </div>
           
           <div class="row">
             <div class="col-sm-12">
-              <div class="form-group ">
-                {{ Form::label('description', __('books.description')) }}:
-                @if($errors->has('description'))  
-                {{ Form::textarea('description', $books->description, ['class' => 'form-control is-invalid']) }}
-                @else
-                {{ Form::textarea('description', $books->description, ['class' => 'form-control']) }}
-                @endif
-              </div>
+              @include('templates.form-text', ['space' => 'books', 'tag' => 'genre'])
             </div>
           </div>
           
           <div class="row">
             <div class="col-sm-12">
-              <div class="form-group">
-                {{ Form::label('author', __('books.author')) }}:
-                {{ Form::text('author', $books->author, ['class' => 'form-control']) }}
-              </div>
+              @include('templates.form-textarea', ['space' => 'books', 'tag' => 'description'])
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-12">
+              @include('templates.form-text', ['space' => 'books', 'tag' => 'author'])
             </div>
           </div>
           
