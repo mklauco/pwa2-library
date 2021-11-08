@@ -132,7 +132,10 @@
             $table->dropSoftDeletes();
          });
       ```
-
+## From templating
+1. Create form templates with error bags
+   1. create folder `templates` in `resources/view`
+   2. Prepare the template with fields `space` and `tag`
 
 
 <!-- 1. Add Edit/Copy/Delete functionality. -->
