@@ -31,9 +31,9 @@ class CreateBooksTable extends Migration
      */
     public function down()
     {
-        Schema::table('books', function (Blueprint $table) {
+        // Schema::table('books', function (Blueprint $table) {
             //
             Schema::dropIfExists('books');
-        });
+        // });
     }
 }
