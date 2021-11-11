@@ -20,7 +20,12 @@
                     <i class="cil-user"></i>
                   </span>
                 </div>
-                <input class="form-control" type="text" placeholder="Username">
+                <input class="form-control @error('email') is-invalid @enderror" id="email" name="email" type="text" placeholder="email">
+                @error('email')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
               </div>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
@@ -28,15 +33,20 @@
                     <i class="cil-lock-locked"></i>
                   </span>
                 </div>
-                <input class="form-control" type="password" placeholder="Password">
+                <input class="form-control @error('password') is-invalid @enderror" id="password" name="password" type="password" placeholder="Password">
+                @error('password')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
               </div>
               <div class="row">
                 <div class="col-6">
-                  <button class="btn btn-primary px-4" type="button">Login</button>
+                  <button class="btn btn-primary px-4" type="submit">Login</button>
                 </div>
-                <div class="col-6 text-right">
+                {{-- <div class="col-6 text-right">
                   <button class="btn btn-link px-0" type="button">Forgot password?</button>
-                </div>
+                </div> --}}
               </div>
 
             </form>
