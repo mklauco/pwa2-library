@@ -137,6 +137,14 @@
    1. create folder `templates` in `resources/view`
    2. Prepare the template with fields `space` and `tag`
 
+## Users MVC
+1. run `php artisan make:controller UsersController --resource`
+1. include route `Route::resource('users', App\Http\Controllers\UsersController::class);`
+1. update the `_sidebar.blade.php` file
+1. copy *index* and *create* views from `views/books` to `views/users`
+   1. merge edit and create into one blade file
+   1. in `UsersController/create` and `UsersController/edit` pass variable to distinguish create/edit
+
 
 <!-- 1. Add Edit/Copy/Delete functionality. -->
 
