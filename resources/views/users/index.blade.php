@@ -43,7 +43,7 @@
               </tbody>
             </table> 
             @else
-            Start with insert a book into the databse.
+            Start with insert a user into the databse.
             @endif
             
           </div>

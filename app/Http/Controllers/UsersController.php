@@ -28,6 +28,7 @@ class UsersController extends Controller
     public function create()
     {
         //
+        return view('users.create')->with('create', true);
     }
 
     /**
@@ -61,6 +62,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         //
+        return view('users.create')->with('users', User::find($id))->with('create', true);
     }
 
     /**
