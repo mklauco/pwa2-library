@@ -145,6 +145,9 @@
    1. merge edit and create into one blade file
    1. in `UsersController/create` and `UsersController/edit` pass variable to distinguish create/edit
 
+1. add logout route to view, check the logout implementation in `views/layouts/app.blade.php` and copy necessary lines to `views/layouts/app-coreui.blade`
+   1. modify `views/auth/login.blade.php` according to [CoreUI 3.4.0 login](https://coreui.io/demo/free/3.4.0/login.html)
+   1. it is recommended to create layout for login page i.e. in `views/layouts/app-login-coreui.blade`
 
 <!-- 1. Add Edit/Copy/Delete functionality. -->
 
