@@ -19,10 +19,9 @@
   </li>
 
   <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link" href="#">
+    <a class="c-sidebar-nav-link {{ Request::is('users*') ? 'c-active' : '' }}" href="{{route('users.index')}}">
       <i class="c-sidebar-nav-icon cil-user"></i>
       Users
-      <span class="badge badge-info">NEW</span>
     </a>
   </li>
   
