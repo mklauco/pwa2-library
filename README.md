@@ -145,6 +145,7 @@
    1. merge edit and create into one blade file
    1. in `UsersController/create` and `UsersController/edit` pass variable to distinguish create/edit
 
+1. add logout route to view, check the logout implementation in `views/layouts/app.blade.php` and copy necessary lines to `views/layouts/app-coreui.blade`
 
 <!-- 1. Add Edit/Copy/Delete functionality. -->
 

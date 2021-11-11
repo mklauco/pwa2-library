@@ -48,10 +48,11 @@
       </i>
     </a>
   </li> --}}
-
+  
   <li class="c-header-nav-item dropdown">
     <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
       <div class="c-avatar">
+        {{-- Here comes the username --}}
         <i class="c-sidebar-nav-icon cil-user"></i>
       </div>
     </a>
@@ -62,12 +63,17 @@
       </div>
       <div class="dropdown-divider">       
       </div>
-      <a class="dropdown-item" href="#">            
-        <i class="c-sidebar-nav-icon cil-account-logout"></i>      
-        Logout
-      </a>    
-    </div>
-  </li>
+      <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">            
+        <i class="c-sidebar-nav-icon cil-account-logout"></i>
+        {{ __('Logout') }}
+      </a>
+      
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+      </form>
+    </a>    
+  </div>
+</li>
 </ul>
 
 <div class="c-subheader px-3">    
@@ -75,7 +81,7 @@
     <li class="breadcrumb-item">Home</li>    
     {{-- <li class="breadcrumb-item">       --}}
       {{-- <a href="#">Admin</a>     --}}
-    {{-- </li>     --}}
-    <li class="breadcrumb-item active">Dashboard</li>      
-  </ol> 
-</div>
+      {{-- </li>     --}}
+      <li class="breadcrumb-item active">Dashboard</li>      
+    </ol> 
+  </div>
