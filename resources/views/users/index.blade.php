@@ -27,7 +27,7 @@
             <tbody>
               @foreach ($users as $b)
               <tr>
-                <td>{{$b->name}}</td>
+                <td>{{$b->first_name}}&nbsp;{{$b->last_name}}</td>
                 <td>{{$b->email}}</td>
                 <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>

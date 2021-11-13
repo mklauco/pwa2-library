@@ -30,16 +30,18 @@ class UsersController extends Controller
   {
     //
     $v = [
-      'name'          => 'required',
+      'first_name'    => 'required|string',
+      'last_name'     => 'required|string',
       'email'         => 'required|email|unique:App\Models\User,email',
     ];
     $validated = $request->validate($v);
 
     try {
       User::create([
-        'name'        => $request['name'],
-        'email'       => $request['email'],
-        'password'    => Hash::make($this->defaultPassword()),
+        'first_name'    => $request['first_name'],
+        'last_name'     => $request['last_name'],
+        'email'         => $request['email'],
+        'password'      => Hash::make($this->defaultPassword()),
       ]);
       Session::flash('success', __('users.created'));
       return redirect('users');
@@ -72,13 +74,15 @@ class UsersController extends Controller
   {
     //
     $v = [
-      'name'          => 'required',
+      'first_name'    => 'required|string',
+      'last_name'     => 'required|string',
       'email'         => ['required', Rule::unique('users')->ignore($id)]
     ];
     $validated = $request->validate($v);
 
     $u = User::find($id);
-    $u->name = $request['name'];
+    $u->first_name = $request['first_name'];
+    $u->last_name  = $request['last_name'];
 
     try {
       $u->save();

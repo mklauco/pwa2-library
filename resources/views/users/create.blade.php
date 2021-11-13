@@ -11,7 +11,7 @@
         @else
         {!! Form::model($users, ['route' => ['users.update', $users->id], 'method' => 'PUT']) !!}
         @endif
-
+        
         <div class="card-header">
           @if($create == true)
           {{ __('users.create') }}
@@ -21,17 +21,22 @@
         </div>
         
         <div class="card-body">
-
+          
           <div class="row">
             <div class="col-sm-6">
-              @include('templates.form-text', ['space' => 'users', 'tag' => 'name'])
+              @include('templates.form-text', ['space' => 'users', 'tag' => 'first_name'])
             </div>
-            
+            <div class="col-sm-6">
+              @include('templates.form-text', ['space' => 'users', 'tag' => 'last_name'])
+            </div>
+          </div>
+          
+          <div class="row">
             <div class="col-sm-6">
               @include('templates.form-text', ['space' => 'users', 'tag' => 'email'])
             </div>
           </div>
-
+          
         </div>
         <div class="card-footer">
           <div class="row">
