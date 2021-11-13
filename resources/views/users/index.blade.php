@@ -22,6 +22,8 @@
                   <th>{{__('users.email')}}</th>
                   <th>{{__('general.created_at')}}</th>
                   <th>{{__('general.updated_at')}}</th>
+                  <th>{{__('general.last_login_at')}}</th>
+                  <th>{{__('general.last_login_ip')}}</th>
                   <th colspan="2">{{__('general.actions')}}</th>
                 </tr>
               </thead>
@@ -32,6 +34,14 @@
                   <td>{{$b->email}}</td>
                   <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                   <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
+                  <td>
+                    @if(!is_null($b->last_login_at))
+                    {{Carbon\Carbon::parse($b->last_login_at)->tz('Europe/Berlin')->toDateTimeString()}}
+                    @else
+                    not logged in yet
+                    @endif
+                  </td>
+                  <td>{{$b->last_login_ip}}</td>
                   <td>{!! Html::linkRoute('users.edit', __('general.edit'), ['user' => $b->id], array('class' => 'theme-color' )) !!}</td>
                   <td>
                     {!! Form::open(array('route' => ['users.destroy', $b->id], 'method'=>'DELETE')) !!}

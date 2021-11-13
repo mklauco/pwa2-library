@@ -157,8 +157,19 @@
       $u->save();
     ```
 ## Users MVC (exercise work)
-1. Include *last login field*
-   1. expand the users
+1. Include *last login field* and *user ip address* visit [Add login time](https://laraveldaily.com/save-users-last-login-time-ip-address/)
+   1. expand the users table, don't forget to include `dropColumn` methods
+   1. include `use Illuminate\Http\Request; use Carbon\Carbon;` in `LoginController` and include a method
+   ```php
+    function authenticated(Request $request, $user)
+    {
+        $user->update([
+            'last_login_at' => Carbon::now()->toDateTimeString(),
+            'last_login_ip' => $request->getClientIp()
+        ]);
+    }
+   ```
+   1. update the `index.blade.php` to see the results, note, that *null/empty* date results in actual time if using the `Carbon::parse()` method
 
 1. add logout route to view, check the logout implementation in `views/layouts/app.blade.php` and copy necessary lines to `views/layouts/app-coreui.blade`
    1. modify `views/auth/login.blade.php` according to [CoreUI 3.4.0 login](https://coreui.io/demo/free/3.4.0/login.html)
