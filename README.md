@@ -170,14 +170,10 @@
     }
    ```
    1. update the `index.blade.php` to see the results, note, that *null/empty* date results in actual time if using the `Carbon::parse()` method
-
 1. add logout route to view, check the logout implementation in `views/layouts/app.blade.php` and copy necessary lines to `views/layouts/app-coreui.blade`
    1. modify `views/auth/login.blade.php` according to [CoreUI 3.4.0 login](https://coreui.io/demo/free/3.4.0/login.html)
    1. it is recommended to create layout for login page i.e. in `views/layouts/app-login-coreui.blade`
-
-<!-- 1. Add Edit/Copy/Delete functionality. -->
-
-
+1. Expand the `User` model with `first_name` and `last_name` and make changes to appropriate views
 
 ### Notes
 * Alternatives to [Laravel UI](https://github.com/laravel/ui) are Laravel Breeze, Laravel JetStream, but they are more complex
