@@ -12,7 +12,12 @@
         {!! Form::model($users, ['route' => ['users.update', $users->id], 'method' => 'PUT']) !!}
         @endif
 
-        <div class="card-header">{{ __('users.create') }}
+        <div class="card-header">
+          @if($create == true)
+          {{ __('users.create') }}
+          @else
+          {{ __('users.update') }}
+          @endif
         </div>
         
         <div class="card-body">

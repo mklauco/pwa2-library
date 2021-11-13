@@ -37,6 +37,10 @@
                 <div class="alert alert-success" role="alert">{!! Session::get('success') !!}</div>
                 @endif
 
+                @if (Session::has('failure'))
+                <div class="alert alert-danger" role="alert">{!! Session::get('success') !!}</div>
+                @endif
+
                 <!-- Main content here -->
                 @yield('content')
             </main>

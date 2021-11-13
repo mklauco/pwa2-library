@@ -137,13 +137,28 @@
    1. create folder `templates` in `resources/view`
    2. Prepare the template with fields `space` and `tag`
 
-## Users MVC
+## Users MVC (homework)
+1. Model `User` already exists (is created by `laravel/ui` package)
 1. run `php artisan make:controller UsersController --resource`
 1. include route `Route::resource('users', App\Http\Controllers\UsersController::class);`
 1. update the `_sidebar.blade.php` file
 1. copy *index* and *create* views from `views/books` to `views/users`
    1. merge edit and create into one blade file
    1. in `UsersController/create` and `UsersController/edit` pass variable to distinguish create/edit
+1. In `UsersController/store`
+   1. in validation include `'email' => 'required|email|unique:App\Models\User,email'`
+   1. Passwords are created as `Hash::make('password')`
+1. In `UsersController/update`
+   1. exclude updateable profile from unique `'email' => ['required', Rule::unique('users')->ignore($id)]`
+   1. Use save method to update everything except email address
+   ```php
+      $u = User::find($id);
+      $u->name = $request['name'];
+      $u->save();
+    ```
+## Users MVC (exercise work)
+1. Include *last login field*
+   1. expand the users
 
 1. add logout route to view, check the logout implementation in `views/layouts/app.blade.php` and copy necessary lines to `views/layouts/app-coreui.blade`
    1. modify `views/auth/login.blade.php` according to [CoreUI 3.4.0 login](https://coreui.io/demo/free/3.4.0/login.html)
