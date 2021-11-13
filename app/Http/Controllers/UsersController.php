@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Session;
 
 use App\Models\User;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -15,6 +16,7 @@ class UsersController extends Controller
   public function index()
   {
     //
+    // dd(Auth::user());
     $users = User::all();
     return view('users.index')->with('users', $users);
   }

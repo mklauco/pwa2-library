@@ -176,6 +176,15 @@
    1. it is recommended to create layout for login page i.e. in `views/layouts/app-login-coreui.blade`
 1. Expand the `User` model with `first_name` and `last_name` and make changes to appropriate views
    1. run `php artisan make:migration add_name_fields_to_users_table`
+   1. don;t forget to update fillables in `Models\User`
+1. Modify routes to include middleware auth to access user data in blade
+   1. update `web.php`
+   ```php
+   Route::middleware(['auth'])->group(function () {
+      // all authentificated routes
+   });
+   ```
+   1. include `{{ (Auth::user()->first_name) }}&nbsp;{{ (Auth::user()->last_name) }}` in `_header`.
 
 
 ### Notes

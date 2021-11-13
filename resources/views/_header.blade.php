@@ -21,40 +21,17 @@
   <li class="c-header-nav-item px-3">
     <a class="c-header-nav-link" href="#">Some link...</a>
   </li>
-  {{-- <li class="c-header-nav-item px-3">
-    <a class="c-header-nav-link" href="#">Users</a>
-  </li>
-  <li class="c-header-nav-item px-3">
-    <a class="c-header-nav-link" href="#">Settings</a>
-  </li> --}}
 </ul>
 
 <ul class="c-header-nav ml-auto mr-4">
-  {{-- <li class="c-header-nav-item d-md-down-none mx-2">
-    <a class="c-header-nav-link" href="#">
-      <i class="c-sidebar-nav-icon cil-bell">
-      </i>
-    </a>
-  </li> --}}
-  {{-- <li class="c-header-nav-item d-md-down-none mx-2">
-    <a class="c-header-nav-link" href="#">
-      <i class="c-sidebar-nav-icon cil-list-rich">
-      </i>
-    </a>
-  </li> --}}
-  {{-- <li class="c-header-nav-item d-md-down-none mx-2">
-    <a class="c-header-nav-link" href="#">
-      <i class="c-sidebar-nav-icon cil-envelope-open">
-      </i>
-    </a>
-  </li> --}}
   
   <li class="c-header-nav-item dropdown">
     <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      
       <div class="c-avatar">
-        {{-- Here comes the username --}}
         <i class="c-sidebar-nav-icon cil-user"></i>
       </div>
+      {{ (Auth::user()->first_name) }}&nbsp;{{ (Auth::user()->last_name) }}
     </a>
     
     <div class="dropdown-menu dropdown-menu-right pt-0">
@@ -67,7 +44,6 @@
         <i class="c-sidebar-nav-icon cil-account-logout"></i>
         {{ __('Logout') }}
       </a>
-      
       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
       </form>
