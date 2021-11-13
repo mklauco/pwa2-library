@@ -17,11 +17,11 @@
   </i>
   
 </button>
-<ul class="c-header-nav d-md-down-none">
+{{-- <ul class="c-header-nav d-md-down-none">
   <li class="c-header-nav-item px-3">
     <a class="c-header-nav-link" href="#">Some link...</a>
   </li>
-</ul>
+</ul> --}}
 
 <ul class="c-header-nav ml-auto mr-4">
   
@@ -52,12 +52,12 @@
 </li>
 </ul>
 
-<div class="c-subheader px-3">    
-  <ol class="breadcrumb border-0 m-0">    
-    <li class="breadcrumb-item">Home</li>    
+{{-- <div class="c-subheader px-3">     --}}
+  {{-- <ol class="breadcrumb border-0 m-0">     --}}
+    {{-- <li class="breadcrumb-item">Home</li>     --}}
     {{-- <li class="breadcrumb-item">       --}}
       {{-- <a href="#">Admin</a>     --}}
       {{-- </li>     --}}
-      <li class="breadcrumb-item active">Dashboard</li>      
-    </ol> 
-  </div>
+      {{-- <li class="breadcrumb-item active">Dashboard</li>       --}}
+      {{-- </ol>  --}}
+      {{-- </div> --}}
