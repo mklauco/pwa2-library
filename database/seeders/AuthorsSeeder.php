@@ -14,7 +14,8 @@ class AuthorsSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {   
+        Authors::where('id', '>', 0)->delete();
         Authors::factory(10)->create();
     }
 }

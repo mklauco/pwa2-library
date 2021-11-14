@@ -193,8 +193,8 @@
    1. Prepare the factory 
    ```php
         return [
-            'first_name' => $this->faker->name(),
-            'last_name'  => $this->faker->name(),
+            'first_name' => $this->faker->firstName(),
+            'last_name'  => $this->faker->lastName(),
         ];
    ```
    1. prepare seeder (number 10 creates 10 random entries in DB)
@@ -202,11 +202,13 @@
    use App\Models\Authors;
     public function run()
     {
-        //
         Authors::factory(10)->create();
     }
    ```
-   1. prepare seeder run `php artisan db:seed --class=AuthorsSeeder`
+1. prepare seeder run `php artisan db:seed --class=AuthorsSeeder`
+1. run `php artisan make:controller AuthorsController --resource`
+   1. create route `authors`
+   1. prepare all views and store/update methods
 
 
 ### Notes
