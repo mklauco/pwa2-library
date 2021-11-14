@@ -209,6 +209,8 @@
 1. run `php artisan make:controller AuthorsController --resource`
    1. create route `authors`
    1. prepare all views and store/update methods
+   1. insert soft-delete feature `php artisan make:migration add_soft_delete_authors --table="authors"`
+   
 
 
 ### Notes

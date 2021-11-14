@@ -24,7 +24,7 @@
             </thead>
             <tbody>
               @foreach ($authors as $b)
-              <tr>
+              <tr @if(!is_null($b->deleted_at)) class="text-black-50" @endif>
                 <td>{{$b->first_name}}&nbsp;{{$b->last_name}}</td>
                 <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
@@ -39,7 +39,7 @@
             </tbody>
           </table> 
           @else
-          Start with inserting a user into the databse.
+          Start with inserting an author into the databse.
           @endif
           
           

@@ -13,7 +13,7 @@ class AuthorsController extends Controller
     public function index()
     {
         //
-        $authors = Authors::all();
+        $authors = Authors::withTrashed()->get();
         return view('authors.index')->with('authors', $authors);
     }
     
@@ -76,14 +76,10 @@ class AuthorsController extends Controller
         }
     }
     
-    /**
-    * Remove the specified resource from storage.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
     public function destroy($id)
     {
-        //
+        Authors::find($id)->delete();
+        Session::flash('success', __('authors.deleted'));
+        return redirect('authors');
     }
 }
