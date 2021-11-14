@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use App\Models\Authors;
+use App\Models\Books;
 
-class AuthorsSeeder extends Seeder
+class BooksSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,9 @@ class AuthorsSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   
-        Authors::where('id', '>', 0)->delete();
-        Authors::factory(15)->create();
+    {
+        //
+        Books::where('id', '>', 0)->delete();
+        Books::factory(20)->create();
     }
 }

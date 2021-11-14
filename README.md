@@ -190,7 +190,7 @@
 1. Create a model with [migrations](https://laravel.com/docs/8.x/migrations), [factories](https://laravel.com/docs/8.x/database-testing#defining-model-factories) and [seeders](https://laravel.com/docs/8.x/seeding)
    1. run `php artisan make:model Authors -mfs` it will create new files in all subfolders of `database` folder
    1. run `php artisan migrate`
-   1. Prepare the factory 
+   1. Prepare the factory check the tool [PHP Faker](https://fakerphp.github.io/) and run `composer require fakerphp/faker`
    ```php
         return [
             'first_name' => $this->faker->firstName(),
@@ -202,7 +202,8 @@
    use App\Models\Authors;
     public function run()
     {
-        Authors::factory(10)->create();
+      Authors::where('id', '>', 0)->delete();
+      Authors::factory(10)->create();
     }
    ```
 1. prepare seeder run `php artisan db:seed --class=AuthorsSeeder`
@@ -219,7 +220,7 @@
       Books::create($request->all());
       Session::flash('success', __('books.saved'));
       return redirect('books');
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       Session::flash('failure', $e->getMessage());
       return redirect()->back()->withInput();
     }
@@ -265,6 +266,31 @@ In the method `dropForeign` are the brackets important.
   @endif
 </div>
 ```
+1. create factory and seeder for books
+   1. run `php artisan make:factory BooksFactory`
+   ```php
+      return [
+         'name'          => implode($this->faker->words(3), ' '),
+         'description'   => implode($this->faker->words(10), ' '),
+         'genre'         => $this->faker->randomElement(['novel', 'drama', 'documentary']),
+         'author'        => rand(1, 30),
+      ];
+   ```
+   1. run `php artisan make:seeder BooksSeeder`
+   1. Update the `DatabaseSeeder` with
+   ```php
+    public function run()
+    {
+        // \App\Models\User::factory(10)->create();
+        $this->call(AuthorsSeeder::class);
+        $this->call(BooksSeeder::class);
+    }
+   ```
+   1. run `php artisan db:seed` to seed the database with fresh data
+
+## Advanced debugging environment
+
+
 
 ### Notes
 * Alternatives to [Laravel UI](https://github.com/laravel/ui) are Laravel Breeze, Laravel JetStream, but they are more complex
