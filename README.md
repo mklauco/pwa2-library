@@ -137,20 +137,54 @@
    1. create folder `templates` in `resources/view`
    2. Prepare the template with fields `space` and `tag`
 
-## Users MVC
+## Users MVC (homework)
+1. Model `User` already exists (is created by `laravel/ui` package)
 1. run `php artisan make:controller UsersController --resource`
 1. include route `Route::resource('users', App\Http\Controllers\UsersController::class);`
 1. update the `_sidebar.blade.php` file
 1. copy *index* and *create* views from `views/books` to `views/users`
    1. merge edit and create into one blade file
    1. in `UsersController/create` and `UsersController/edit` pass variable to distinguish create/edit
-
+1. In `UsersController/store`
+   1. in validation include `'email' => 'required|email|unique:App\Models\User,email'`
+   1. Passwords are created as `Hash::make('password')`
+1. In `UsersController/update`
+   1. exclude updateable profile from unique `'email' => ['required', Rule::unique('users')->ignore($id)]`
+   1. Use save method to update everything except email address
+   ```php
+      $u = User::find($id);
+      $u->name = $request['name'];
+      $u->save();
+    ```
+## Users MVC (exercise work)
+1. Include *last login field* and *user IP address* visit [Add login time](https://laraveldaily.com/save-users-last-login-time-ip-address/)
+   1. run `php artisan make:migration add_login_fields_to_users_table`
+   1. expand the users table, don't forget to include `dropColumn` methods
+   1. include `use Illuminate\Http\Request; use Carbon\Carbon;` in `LoginController` and include a method
+   ```php
+    function authenticated(Request $request, $user)
+    {
+        $user->update([
+            'last_login_at' => Carbon::now()->toDateTimeString(),
+            'last_login_ip' => $request->getClientIp()
+        ]);
+    }
+   ```
+   1. update the `index.blade.php` to see the results, note, that *null/empty* date results in actual time if using the `Carbon::parse()` method
 1. add logout route to view, check the logout implementation in `views/layouts/app.blade.php` and copy necessary lines to `views/layouts/app-coreui.blade`
    1. modify `views/auth/login.blade.php` according to [CoreUI 3.4.0 login](https://coreui.io/demo/free/3.4.0/login.html)
    1. it is recommended to create layout for login page i.e. in `views/layouts/app-login-coreui.blade`
-
-<!-- 1. Add Edit/Copy/Delete functionality. -->
-
+1. Expand the `User` model with `first_name` and `last_name` and make changes to appropriate views
+   1. run `php artisan make:migration add_name_fields_to_users_table`
+   1. don;t forget to update fillable in `Models\User`
+1. Modify routes to include middleware-auth to access user data in blade
+   1. update `web.php`
+   ```php
+   Route::middleware(['auth'])->group(function () {
+      // all authentificated routes
+   });
+   ```
+   1. include `{{ (Auth::user()->first_name) }}&nbsp;{{ (Auth::user()->last_name) }}` in `_header`.
 
 
 ### Notes
