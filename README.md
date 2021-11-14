@@ -251,7 +251,20 @@ $books = Books::join('authors', 'books.author', '=', 'authors.id')->select(['boo
     }
 ```
 In the method `dropForeign` are the brackets important.
-1.
+1. Create `form-select.blade.php` input template for list of authors. Prepare author list in `Controller`
+```php
+<div class="form-group">
+  {{ Form::label($tag, __($space.'.'.$tag)) }}:
+  @if($errors->has($tag))
+  {{ Form::select($tag, $list ?? ['0' => '0'], $$space[$tag] ?? '', ['class' => 'form-control is-invalid']) }}
+  @error($tag)
+  <div class="invalid-feedback">{{ $message }}</div>
+  @enderror
+  @else
+  {{ Form::select($tag, $list ?? ['0' => '0'], $$space[$tag] ?? '', ['class' => 'form-control']) }}
+  @endif
+</div>
+```
 
 ### Notes
 * Alternatives to [Laravel UI](https://github.com/laravel/ui) are Laravel Breeze, Laravel JetStream, but they are more complex

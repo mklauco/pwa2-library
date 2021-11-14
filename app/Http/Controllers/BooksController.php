@@ -25,7 +25,8 @@ class BooksController extends Controller
   public function create()
   {
     //
-    return view('books.create');
+    // dd($this->authorList());
+    return view('books.create')->with('authorList', $this->authorList());
   }
   
   
@@ -61,7 +62,7 @@ class BooksController extends Controller
   {
     //
     $books = Books::find($id);
-    return view('books.edit')->with('books', $books);
+    return view('books.edit')->with('books', $books)->with('authorList', $this->authorList());
   }
   
   public function update(Request $request, $id)
