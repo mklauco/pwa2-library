@@ -290,6 +290,10 @@ In the method `dropForeign` are the brackets important.
 
 ## Advanced debugging environment
 
+## prettify the look
+1. favicon generator: https://www.favicon-generator.org/
+
+
 
 
 ### Notes

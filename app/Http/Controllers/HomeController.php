@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Books;
+use App\Models\User;
+use App\Models\Authors;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $books = Books::all()->count();
+        $users = User::all()->count();
+        $authors = Authors::all()->count();
+        return view('home')
+        ->with('users', $users)
+        ->with('authors', $authors)
+        ->with('books', $books);
     }
 }
