@@ -38,7 +38,7 @@
                 @endif
 
                 @if (Session::has('failure'))
-                <div class="alert alert-danger" role="alert">{!! Session::get('success') !!}</div>
+                <div class="alert alert-danger" role="alert">{!! Session::get('failure') !!}</div>
                 @endif
 
                 <!-- Main content here -->

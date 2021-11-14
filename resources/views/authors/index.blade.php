@@ -16,6 +16,7 @@
           <table class="table">
             <thead>
               <tr>
+                <th>{{__('general.id')}}</th>
                 <th>{{__('authors.name')}}</th>
                 <th>{{__('general.created_at')}}</th>
                 <th>{{__('general.updated_at')}}</th>
@@ -25,6 +26,7 @@
             <tbody>
               @foreach ($authors as $b)
               <tr @if(!is_null($b->deleted_at)) class="text-black-50" @endif>
+                <td>{{$b->id}}</td>
                 <td>{{$b->first_name}}&nbsp;{{$b->last_name}}</td>
                 <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>

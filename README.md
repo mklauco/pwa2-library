@@ -186,7 +186,7 @@
    ```
    1. include `{{ (Auth::user()->first_name) }}&nbsp;{{ (Auth::user()->last_name) }}` in `_header`.
 
-## Authors MVC
+## Authors MVC (exercise)
 1. Create a model with [migrations](https://laravel.com/docs/8.x/migrations), [factories](https://laravel.com/docs/8.x/database-testing#defining-model-factories) and [seeders](https://laravel.com/docs/8.x/seeding)
    1. run `php artisan make:model Authors -mfs` it will create new files in all subfolders of `database` folder
    1. run `php artisan migrate`
@@ -210,8 +210,48 @@
    1. create route `authors`
    1. prepare all views and store/update methods
    1. insert soft-delete feature `php artisan make:migration add_soft_delete_authors --table="authors"`
-   
+1. include `id` column in `index.blade.php` view
 
+## BooksController (exercise)
+1. Expand store/update methods in the `BooksController` with failure session notice, e.g.,
+```php
+    try {
+      Books::create($request->all());
+      Session::flash('success', __('books.saved'));
+      return redirect('books');
+    } catch (Exception $e) {
+      Session::flash('failure', $e->getMessage());
+      return redirect()->back()->withInput();
+    }
+```
+Note, the need for such notification will be used later in the exercise.
+1. Update the `Books::all()` view with the join with authors to see the author name in `books/index.blade.php`
+```php
+$books = Books::join('authors', 'books.author', '=', 'authors.id')->get();
+```
+1. Note, that *edit* method will not work due to ambiguous `id` field after join. Modify the `join` as follows
+```php
+$books = Books::join('authors', 'books.author', '=', 'authors.id')->select(['books.*', 'authors.first_name AS author_first_name', 'authors.last_name AS last_first_name'])->get();
+```
+1. add relation between books table and authors table `php artisan make:migration add_author_id_to_books --table="books"` to do that, install `composer require doctrine/dbal`
+```php
+    public function up()
+    {
+        Schema::table('books', function (Blueprint $table) {
+            $table->bigInteger('author')->unsigned()->change();
+            $table->foreign('author')->references('id')->on('authors')->onDelete('cascade');
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropForeign(['author']);
+        });
+    }
+```
+In the method `dropForeign` are the brackets important.
+1.
 
 ### Notes
 * Alternatives to [Laravel UI](https://github.com/laravel/ui) are Laravel Breeze, Laravel JetStream, but they are more complex
