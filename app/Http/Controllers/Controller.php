@@ -7,6 +7,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
+use App\Models\Authors;
+
 use Auth;
 
 class Controller extends BaseController
@@ -17,4 +19,12 @@ class Controller extends BaseController
         return 'fchpt2021';
     }
 
+    protected function authorList(){
+        $authors = Authors::all();
+        $list = [];
+        foreach($authors as $a){
+            $list[$a->id] = $a->first_name.' '.$a->last_name;
+        }
+        return $list;
+    }
 }

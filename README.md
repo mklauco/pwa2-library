@@ -186,6 +186,111 @@
    ```
    1. include `{{ (Auth::user()->first_name) }}&nbsp;{{ (Auth::user()->last_name) }}` in `_header`.
 
+## Authors MVC (exercise)
+1. Create a model with [migrations](https://laravel.com/docs/8.x/migrations), [factories](https://laravel.com/docs/8.x/database-testing#defining-model-factories) and [seeders](https://laravel.com/docs/8.x/seeding)
+   1. run `php artisan make:model Authors -mfs` it will create new files in all subfolders of `database` folder
+   1. run `php artisan migrate`
+   1. Prepare the factory check the tool [PHP Faker](https://fakerphp.github.io/) and run `composer require fakerphp/faker`
+   ```php
+        return [
+            'first_name' => $this->faker->firstName(),
+            'last_name'  => $this->faker->lastName(),
+        ];
+   ```
+   1. prepare seeder (number 10 creates 10 random entries in DB)
+   ```php
+   use App\Models\Authors;
+    public function run()
+    {
+      Authors::where('id', '>', 0)->delete();
+      Authors::factory(10)->create();
+    }
+   ```
+1. prepare seeder run `php artisan db:seed --class=AuthorsSeeder`
+1. run `php artisan make:controller AuthorsController --resource`
+   1. create route `authors`
+   1. prepare all views and store/update methods
+   1. insert soft-delete feature `php artisan make:migration add_soft_delete_authors --table="authors"`
+1. include `id` column in `index.blade.php` view
+
+## BooksController (exercise)
+1. Expand store/update methods in the `BooksController` with failure session notice, e.g.,
+```php
+    try {
+      Books::create($request->all());
+      Session::flash('success', __('books.saved'));
+      return redirect('books');
+    } catch (\Exception $e) {
+      Session::flash('failure', $e->getMessage());
+      return redirect()->back()->withInput();
+    }
+```
+Note, the need for such notification will be used later in the exercise.
+1. Update the `Books::all()` view with the join with authors to see the author name in `books/index.blade.php`
+```php
+$books = Books::join('authors', 'books.author', '=', 'authors.id')->get();
+```
+1. Note, that *edit* method will not work due to ambiguous `id` field after join. Modify the `join` as follows
+```php
+$books = Books::join('authors', 'books.author', '=', 'authors.id')->select(['books.*', 'authors.first_name AS author_first_name', 'authors.last_name AS last_first_name'])->get();
+```
+1. add relation between books table and authors table `php artisan make:migration add_author_id_to_books --table="books"` to do that, install `composer require doctrine/dbal`
+```php
+    public function up()
+    {
+        Schema::table('books', function (Blueprint $table) {
+            $table->bigInteger('author')->unsigned()->change();
+            $table->foreign('author')->references('id')->on('authors')->onDelete('cascade');
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropForeign(['author']);
+        });
+    }
+```
+In the method `dropForeign` are the brackets important.
+1. Create `form-select.blade.php` input template for list of authors. Prepare author list in `Controller`
+```php
+<div class="form-group">
+  {{ Form::label($tag, __($space.'.'.$tag)) }}:
+  @if($errors->has($tag))
+  {{ Form::select($tag, $list ?? ['0' => '0'], $$space[$tag] ?? '', ['class' => 'form-control is-invalid']) }}
+  @error($tag)
+  <div class="invalid-feedback">{{ $message }}</div>
+  @enderror
+  @else
+  {{ Form::select($tag, $list ?? ['0' => '0'], $$space[$tag] ?? '', ['class' => 'form-control']) }}
+  @endif
+</div>
+```
+1. create factory and seeder for books
+   1. run `php artisan make:factory BooksFactory`
+   ```php
+      return [
+         'name'          => implode($this->faker->words(3), ' '),
+         'description'   => implode($this->faker->words(10), ' '),
+         'genre'         => $this->faker->randomElement(['novel', 'drama', 'documentary']),
+         'author'        => rand(1, 30),
+      ];
+   ```
+   1. run `php artisan make:seeder BooksSeeder`
+   1. Update the `DatabaseSeeder` with
+   ```php
+    public function run()
+    {
+        // \App\Models\User::factory(10)->create();
+        $this->call(AuthorsSeeder::class);
+        $this->call(BooksSeeder::class);
+    }
+   ```
+   1. run `php artisan db:seed` to seed the database with fresh data
+
+## Advanced debugging environment
+
+
 
 ### Notes
 * Alternatives to [Laravel UI](https://github.com/laravel/ui) are Laravel Breeze, Laravel JetStream, but they are more complex

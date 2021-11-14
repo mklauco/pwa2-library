@@ -19,6 +19,13 @@
   </li>
 
   <li class="c-sidebar-nav-item">
+    <a class="c-sidebar-nav-link {{ Request::is('authors*') ? 'c-active' : '' }}" href="{{route('authors.index')}}">
+      <i class="c-sidebar-nav-icon cil-address-book"></i>
+      Authors
+    </a>
+  </li>
+
+  <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link {{ Request::is('users*') ? 'c-active' : '' }}" href="{{route('users.index')}}">
       <i class="c-sidebar-nav-icon cil-user"></i>
       Users

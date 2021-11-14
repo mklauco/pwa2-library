@@ -31,7 +31,7 @@
                   <td>{{$b->name}}</td>
                   <td>{{$b->description}}</td>
                   <td>{{$b->genre}}</td>
-                  <td>{{$b->author}}</td>
+                  <td>{{$b->author_first_name}}&nbsp;{{$b->last_first_name}}</td>
                   <td>{!! Html::linkRoute('books.edit', __('books.edit'), ['book' => $b->id], array('class' => 'theme-color' )) !!}</td>
                   <td>
                     {!! Form::open(array('route' => ['books.destroy', $b->id], 'method'=>'DELETE')) !!}
@@ -43,7 +43,7 @@
               </tbody>
             </table> 
             @else
-            Start with insert a book into the databse.
+            Start with insert a book into the database.
             @endif
             
           </div>

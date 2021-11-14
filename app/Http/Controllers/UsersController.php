@@ -47,7 +47,7 @@ class UsersController extends Controller
       ]);
       Session::flash('success', __('users.created'));
       return redirect('users');
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       // For later use
       // if (Auth::user()->role == 0){
       //   Session::flash('failure', $e->getMessage());
@@ -90,7 +90,7 @@ class UsersController extends Controller
       $u->save();
       Session::flash('success', __('users.saved'));
       return redirect('users');
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       Session::flash('failure', $e->getMessage());
       return redirect()->back()->withInput();
     }

@@ -24,4 +24,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('books', App\Http\Controllers\BooksController::class);
     Route::resource('users', App\Http\Controllers\UsersController::class);
+    Route::resource('authors', App\Http\Controllers\AuthorsController::class);
 });

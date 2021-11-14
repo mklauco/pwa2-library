@@ -18,27 +18,18 @@ class BooksController extends Controller
   public function index()
   {
     //
-    $books = Books::all();
+    $books = Books::join('authors', 'books.author', '=', 'authors.id')->select(['books.*', 'authors.first_name AS author_first_name', 'authors.last_name AS last_first_name'])->get();
     return view('books.index')->with('books', $books);
   }
   
-  /**
-  * Show the form for creating a new resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
   public function create()
   {
     //
-    return view('books.create');
+    // dd($this->authorList());
+    return view('books.create')->with('authorList', $this->authorList());
   }
   
-  /**
-  * Store a newly created resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @return \Illuminate\Http\Response
-  */
+  
   public function store(Request $request)
   {
     //
@@ -50,42 +41,30 @@ class BooksController extends Controller
     ];
     $validated = $request->validate($v);
     
-    Books::create($request->all());
-    Session::flash('success', __('books.saved'));
-    return redirect('books');
+    try {
+      Books::create($request->all());
+      Session::flash('success', __('books.saved'));
+      return redirect('books');
+    // } catch (\Illuminate\Database\QueryException $e) {
+    } catch (\Exception $e) {
+      Session::flash('failure', $e->getMessage());
+      return redirect()->back()->withInput();
+    }
   }
   
-  /**
-  * Display the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
+  
   public function show($id)
   {
     //
   }
   
-  /**
-  * Show the form for editing the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
   public function edit($id)
   {
     //
     $books = Books::find($id);
-    return view('books.edit')->with('books', $books);
+    return view('books.edit')->with('books', $books)->with('authorList', $this->authorList());
   }
   
-  /**
-  * Update the specified resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
   public function update(Request $request, $id)
   {
     //
@@ -96,18 +75,18 @@ class BooksController extends Controller
       'author'        => 'required|numeric',
     ];
     $validated = $request->validate($v);
-
-    Books::find($id)->update($request->all());
-    Session::flash('success', __('books.updated'));
-    return redirect('books');
+    
+    try {
+      Books::find($id)->update($request->all());
+      Session::flash('success', __('books.updated'));
+      return redirect('books');
+    } catch (Exception $e) {
+      Session::flash('failure', $e->getMessage());
+      return redirect()->back()->withInput();
+    }
   }
   
-  /**
-  * Remove the specified resource from storage.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
+  
   public function destroy($id)
   {
     //
