@@ -186,6 +186,28 @@
    ```
    1. include `{{ (Auth::user()->first_name) }}&nbsp;{{ (Auth::user()->last_name) }}` in `_header`.
 
+## Authors MVC
+1. Create a model with [migrations](https://laravel.com/docs/8.x/migrations), [factories](https://laravel.com/docs/8.x/database-testing#defining-model-factories) and [seeders](https://laravel.com/docs/8.x/seeding)
+   1. run `php artisan make:model Authors -mfs` it will create new files in all subfolders of `database` folder
+   1. run `php artisan migrate`
+   1. Prepare the factory 
+   ```php
+        return [
+            'first_name' => $this->faker->name(),
+            'last_name'  => $this->faker->name(),
+        ];
+   ```
+   1. prepare seeder (number 10 creates 10 random entries in DB)
+   ```php
+   use App\Models\Authors;
+    public function run()
+    {
+        //
+        Authors::factory(10)->create();
+    }
+   ```
+   1. prepare seeder run `php artisan db:seed --class=AuthorsSeeder`
+
 
 ### Notes
 * Alternatives to [Laravel UI](https://github.com/laravel/ui) are Laravel Breeze, Laravel JetStream, but they are more complex
