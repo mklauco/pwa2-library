@@ -295,7 +295,13 @@ In the method `dropForeign` are the brackets important.
 
 ## Advanced debugging environment
 1. install [Debugbar](https://github.com/barryvdh/laravel-debugbar)
-   1. run `composer require barryvdh/laravel-debugbar --dev`
+1. Include true/false `debug` field in `users`, 
+   1. run `php artisan make:migration add_debug_to_users --table="users"`
+   1. set the default value to `false` in migration
+   1. prepare all associated views
+   1. expand the template with tag value only for debug mode
+   1. NOTE: this is not equal to user-rights
+
 
 ## prettify the look
 1. favicon generator: https://www.favicon-generator.org/

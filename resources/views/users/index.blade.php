@@ -18,6 +18,7 @@
               <tr>
                 <th>{{__('users.name')}}</th>
                 <th>{{__('users.email')}}</th>
+                <th>{{__('users.debug')}}</th>
                 <th>{{__('general.created_at')}}</th>
                 <th>{{__('general.updated_at')}}</th>
                 <th>{{__('general.last_login_at')}}</th>
@@ -30,6 +31,7 @@
               <tr>
                 <td>{{$b->first_name}}&nbsp;{{$b->last_name}}</td>
                 <td>{{$b->email}}</td>
+                <td>{{$b->debug}}</td>
                 <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>

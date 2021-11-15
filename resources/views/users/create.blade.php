@@ -37,6 +37,12 @@
             </div>
           </div>
           
+          <div class="row">
+            <div class="col-sm-6">
+              @include('templates.form-select', ['space' => 'users', 'tag' => 'debug', 'list' => $trueFalse])
+            </div>
+          </div>
+
         </div>
         <div class="card-footer">
           <div class="row">

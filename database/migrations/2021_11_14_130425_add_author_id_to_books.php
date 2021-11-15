@@ -14,7 +14,7 @@ class AddAuthorIdToBooks extends Migration
      */
     public function up()
     {  
-        DB::table('books')->delete(); // books table needs to be clear!
+        DB::table('books')->delete(); // books table needs to be clear prior to foreig key addition!
         Schema::table('books', function (Blueprint $table) {
             $table->bigInteger('author')->unsigned()->change();
             $table->foreign('author')->references('id')->on('authors')->onDelete('cascade');

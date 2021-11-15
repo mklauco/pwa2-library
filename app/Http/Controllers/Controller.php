@@ -27,4 +27,10 @@ class Controller extends BaseController
         }
         return $list;
     }
+
+    protected function trueFalse(){
+        $list[0] = 'false';
+        $list[1] = 'true';
+        return $list;
+    }
 }
