@@ -1,3 +1,4 @@
+
 <div class="form-group">
   {{ Form::label($tag, __($space.'.'.$tag)) }}:
   @if($errors->has($tag))
@@ -9,3 +10,4 @@
   {{ Form::text($tag, $$space[$tag] ?? '', ['class' => 'form-control']) }}
   @endif
 </div>
+

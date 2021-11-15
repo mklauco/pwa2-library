@@ -1,5 +1,6 @@
 <?php
 
+
 return [
   
   'list'          => 'List of all books',
@@ -18,3 +19,6 @@ return [
   'deleted'       => 'Entry deleted',
   
 ];
+
+?>
+

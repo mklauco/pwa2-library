@@ -1,3 +1,10 @@
+## Blueprint from Exercise 1
+Do this before the Exercise 2
+1. `git pull`
+2. `git checkout main-E1`
+3. `composer install`
+4. `php artisan migrate`
+
 ## Prerequisites
 1. Install [Composer](http://getcomposer.org)
    * check if `composer -V` works in command line (PC restart may be required)

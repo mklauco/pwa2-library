@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+
     <!-- CSRF Token -->
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <!-- CoreUI CSS -->
@@ -42,6 +44,12 @@
                 @endif
 
                 <!-- Main content here -->
+
+                @if (Session::has('success'))
+                <div class="alert alert-success" role="alert">{!! Session::get('success') !!}</div>
+                @endif
+                
+                
                 @yield('content')
             </main>
         </div>

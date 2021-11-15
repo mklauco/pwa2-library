@@ -12,6 +12,7 @@
         </div>
         
         <div class="card-body">
+
           
           <div class="row">
             @if($books->count() > 0)
@@ -32,20 +33,21 @@
                   <td>{{$b->description}}</td>
                   <td>{{$b->genre}}</td>
                   <td>{{$b->author}}</td>
-                  <td>{!! Html::linkRoute('books.edit', __('books.edit'), ['book' => $b->id], array('class' => 'theme-color' )) !!}</td>
+                  <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
+                  <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->format('G:i:s d.m.Y')}}</td>
+                  <td><a href="{{route('books.edit', $b->id)}}">{{__('books.edit')}}</a></td>
                   <td>
+                    @if($b->deleted_at == null)
                     {!! Form::open(array('route' => ['books.destroy', $b->id], 'method'=>'DELETE')) !!}
                     {!! Form::submit(__('books.delete'), array('class' => 'btn btn-danger btn-ghost-danger my-0 py-0', 'onclick' => 'return confirm("You are about to delete the book.")' ))!!}
-                    {!! Form::close() !!}
+                    {!! Form::close() !!}     
+                    @endif         
+
                   </td>
                 </tr>                  
                 @endforeach
               </tbody>
-            </table> 
-            @else
-            Start with insert a book into the databse.
-            @endif
-            
+            </table>            
           </div>
           
         </div>

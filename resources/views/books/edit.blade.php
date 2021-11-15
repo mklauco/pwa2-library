@@ -5,7 +5,11 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">{{ __('books.update') }}
+
+        <div class="card-header"><strong>{{__('books.update')}}: {{$books->name}}</strong>
+          <div class="card-header-actions">
+          </div>
+
         </div>
         
         <div class="card-body">
@@ -22,6 +26,7 @@
             <div class="col-sm-12">
               @include('templates.form-text', ['space' => 'books', 'tag' => 'genre'])
             </div>
+
           </div>
           
           <div class="row">
@@ -29,20 +34,23 @@
               @include('templates.form-textarea', ['space' => 'books', 'tag' => 'description'])
             </div>
           </div>
+
           
           <div class="row">
             <div class="col-sm-12">
               @include('templates.form-text', ['space' => 'books', 'tag' => 'author'])
             </div>
-          </div>
-          
-          <div class="card-footer">
-            {{ Form::submit('Submit', array('class' => 'btn btn-sm btn-primary')) }}
-          </div>
-          
-          {!! Form::close() !!}
+
+          </div>                
           
         </div>
+        
+        <div class="card-footer">
+          {{ Form::submit(__('books.update'), array('class' => 'btn btn-sm btn-primary')) }}
+        </div>
+        
+        {!! Form::close() !!}
+
       </div>
     </div>
   </div>

@@ -12,14 +12,20 @@
   </li>
 
   <li class="c-sidebar-nav-item">
+
     <a class="c-sidebar-nav-link {{ Request::is('books*') ? 'c-active' : '' }}" href="{{route('books.index')}}">
+
+
+
       <i class="c-sidebar-nav-icon cil-folder-open"></i>
       Books
     </a>
   </li>
 
   <li class="c-sidebar-nav-item">
+
     <a class="c-sidebar-nav-link {{ Request::is('users*') ? 'c-active' : '' }}" href="{{route('users.index')}}">
+
       <i class="c-sidebar-nav-icon cil-user"></i>
       Users
     </a>

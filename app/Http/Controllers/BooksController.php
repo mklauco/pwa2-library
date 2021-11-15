@@ -10,6 +10,7 @@ use Session;
 
 class BooksController extends Controller
 {
+
   /**
   * Display a listing of the resource.
   *
@@ -115,4 +116,5 @@ class BooksController extends Controller
     Session::flash('success', __('books.deleted'));
     return redirect('books');
   }
+
 }
