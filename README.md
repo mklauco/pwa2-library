@@ -236,20 +236,21 @@ $books = Books::join('authors', 'books.author', '=', 'authors.id')->select(['boo
 ```
 1. add relation between books table and authors table `php artisan make:migration add_author_id_to_books --table="books"` to do that, install `composer require doctrine/dbal`
 ```php
-    public function up()
-    {
-        Schema::table('books', function (Blueprint $table) {
-            $table->bigInteger('author')->unsigned()->change();
-            $table->foreign('author')->references('id')->on('authors')->onDelete('cascade');
-        });
-    }
-
-    public function down()
-    {
-        Schema::table('books', function (Blueprint $table) {
-            $table->dropForeign(['author']);
-        });
-    }
+   use Illuminate\Support\Facades\DB;
+   public function up()
+   {
+      DB::table('books')->delete(); // books table needs to be clear prior to foreig key addition!
+      Schema::table('books', function (Blueprint $table) {
+          $table->bigInteger('author')->unsigned()->change();
+          $table->foreign('author')->references('id')->on('authors')->onDelete('cascade');
+      });
+   }
+   public function down()
+   {
+      Schema::table('books', function (Blueprint $table) {
+          $table->dropForeign(['author']);
+      });
+   }
 ```
 In the method `dropForeign` are the brackets important.
 1. Create `form-select.blade.php` input template for list of authors. Prepare author list in `Controller`
@@ -273,10 +274,14 @@ In the method `dropForeign` are the brackets important.
          'name'          => implode($this->faker->words(3), ' '),
          'description'   => implode($this->faker->words(10), ' '),
          'genre'         => $this->faker->randomElement(['novel', 'drama', 'documentary']),
-         'author'        => rand(1, 30),
+         'author'        => rand(1, 15), // must coincide with number of authors
       ];
    ```
-   1. run `php artisan make:seeder BooksSeeder`
+   1. run `php artisan make:seeder BooksSeeder`, include `use App\Models\Books;`
+   ```php
+        Books::where('id', '>', 0)->delete();
+        Books::factory(40)->create();
+   ```
    1. Update the `DatabaseSeeder` with
    ```php
     public function run()
