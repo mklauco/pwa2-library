@@ -40,14 +40,14 @@
                 @endif
 
                 @if (Session::has('failure'))
-                <div class="alert alert-danger" role="alert">{!! Session::get('success') !!}</div>
+                <div class="alert alert-danger" role="alert">{!! Session::get('failure') !!}</div>
                 @endif
 
                 <!-- Main content here -->
 
-                @if (Session::has('success'))
+                {{-- @if (Session::has('success'))
                 <div class="alert alert-success" role="alert">{!! Session::get('success') !!}</div>
-                @endif
+                @endif --}}
                 
                 
                 @yield('content')

@@ -44,6 +44,7 @@ class UsersController extends Controller
         'last_name'     => $request['last_name'],
         'email'         => $request['email'],
         'password'      => Hash::make($this->defaultPassword()),
+        // 'password'      => Hash::make('password'),
       ]);
       Session::flash('success', __('users.created'));
       return redirect('users');
@@ -85,6 +86,7 @@ class UsersController extends Controller
     $u = User::find($id);
     $u->first_name = $request['first_name'];
     $u->last_name  = $request['last_name'];
+    // $u->password = Hash::make($request['password']);
 
     try {
       $u->save();

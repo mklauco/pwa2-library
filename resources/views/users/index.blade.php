@@ -39,6 +39,7 @@
                   not logged in yet
                   @endif
                 </td>
+                {{-- <td>{{$b->last_login_at}}</td> --}}
                 <td>{{$b->last_login_ip}}</td>
                 <td>{!! Html::linkRoute('users.edit', __('general.edit'), ['user' => $b->id], array('class' => 'theme-color' )) !!}</td>
                 <td>
