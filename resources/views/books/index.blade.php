@@ -5,24 +5,25 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header"><strong>{{__('books.list')}}</strong>
+        <div class="card-header"><strong>{{ __('books.list') }}</strong>
           <div class="card-header-actions">
-            <a href="{{route('books.create')}}">Add book</a>
+            <a class="theme-color" href="{{route('books.create')}}"><i class="cil-note-add"></i>&nbsp;{{__('books.create')}}</a>
           </div>
         </div>
         
         <div class="card-body">
+
+          
           <div class="row">
+            @if($books->count() > 0)
             <table class="table table-responsive-sm">
               <thead>
                 <tr>
-                  <th>name</th>
-                  <th>description</th>
-                  <th>genre</th>
-                  <th>author</th>
-                  <th>created_at</th>
-                  <th>updated_at</th>
-                  <th colspan="2">Actions</th>
+                  <th>{{__('books.name')}}</th>
+                  <th>{{__('books.description')}}</th>
+                  <th>{{__('books.genre')}}</th>
+                  <th>{{__('books.author')}}</th>
+                  <th colspan="2">{{__('books.actions')}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -41,6 +42,7 @@
                     {!! Form::submit(__('books.delete'), array('class' => 'btn btn-danger btn-ghost-danger my-0 py-0', 'onclick' => 'return confirm("You are about to delete the book.")' ))!!}
                     {!! Form::close() !!}     
                     @endif         
+
                   </td>
                 </tr>                  
                 @endforeach

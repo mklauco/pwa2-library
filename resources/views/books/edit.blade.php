@@ -5,9 +5,11 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
       <div class="card">
+
         <div class="card-header"><strong>{{__('books.update')}}: {{$books->name}}</strong>
           <div class="card-header-actions">
           </div>
+
         </div>
         
         <div class="card-body">
@@ -24,18 +26,21 @@
             <div class="col-sm-12">
               @include('templates.form-text', ['space' => 'books', 'tag' => 'genre'])
             </div>
-          </div>          
+
+          </div>
           
           <div class="row">
             <div class="col-sm-12">
-              @include('templates.form-text', ['space' => 'books', 'tag' => 'description'])
+              @include('templates.form-textarea', ['space' => 'books', 'tag' => 'description'])
             </div>
-          </div>          
+          </div>
+
           
           <div class="row">
             <div class="col-sm-12">
               @include('templates.form-text', ['space' => 'books', 'tag' => 'author'])
             </div>
+
           </div>                
           
         </div>
@@ -45,6 +50,7 @@
         </div>
         
         {!! Form::close() !!}
+
       </div>
     </div>
   </div>
