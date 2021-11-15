@@ -289,6 +289,8 @@ In the method `dropForeign` are the brackets important.
    1. run `php artisan db:seed` to seed the database with fresh data
 
 ## Advanced debugging environment
+1. install [Debugbar](https://github.com/barryvdh/laravel-debugbar)
+   1. run `composer require barryvdh/laravel-debugbar --dev`
 
 ## prettify the look
 1. favicon generator: https://www.favicon-generator.org/
