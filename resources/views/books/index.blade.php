@@ -47,7 +47,10 @@
                 </tr>                  
                 @endforeach
               </tbody>
-            </table>            
+            </table> 
+            @else
+            Start by inserting the book into the database
+            @endif           
           </div>
           
         </div>
