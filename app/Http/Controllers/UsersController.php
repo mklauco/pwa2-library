@@ -15,8 +15,6 @@ class UsersController extends Controller
 
   public function index()
   {
-    //
-    // dd(Auth::user());
     $users = User::all();
     return view('users.index')->with('users', $users);
   }
@@ -25,7 +23,7 @@ class UsersController extends Controller
   public function create()
   {
     //
-    return view('users.create')->with('create', true);
+    return view('users.create')->with('create', true)->with('trueFalse', $this->trueFalse());
   }
   
   public function store(Request $request)
@@ -34,6 +32,7 @@ class UsersController extends Controller
     $v = [
       'first_name'    => 'required|string',
       'last_name'     => 'required|string',
+      'debug'         => 'required',
       'email'         => 'required|email|unique:App\Models\User,email',
     ];
     $validated = $request->validate($v);
@@ -43,6 +42,7 @@ class UsersController extends Controller
         'first_name'    => $request['first_name'],
         'last_name'     => $request['last_name'],
         'email'         => $request['email'],
+        'debug'         => $request['debug'],
         'password'      => Hash::make($this->defaultPassword()),
       ]);
       Session::flash('success', __('users.created'));
@@ -69,7 +69,7 @@ class UsersController extends Controller
   public function edit($id)
   {
     //
-    return view('users.create')->with('users', User::find($id))->with('create', false);
+    return view('users.create')->with('users', User::find($id))->with('create', false)->with('trueFalse', $this->trueFalse());;
   }
   
   public function update(Request $request, $id)
@@ -78,6 +78,7 @@ class UsersController extends Controller
     $v = [
       'first_name'    => 'required|string',
       'last_name'     => 'required|string',
+      'debug'         => 'required',
       'email'         => ['required', Rule::unique('users')->ignore($id)]
     ];
     $validated = $request->validate($v);
@@ -85,6 +86,7 @@ class UsersController extends Controller
     $u = User::find($id);
     $u->first_name = $request['first_name'];
     $u->last_name  = $request['last_name'];
+    $u->debug      = $request['debug'];
 
     try {
       $u->save();

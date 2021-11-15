@@ -25,7 +25,7 @@ class BooksFactory extends Factory
             'name'          => implode($this->faker->words(3), ' '),
             'description'   => implode($this->faker->words(10), ' '),
             'genre'         => $this->faker->randomElement(['novel', 'drama', 'documentary']),
-            'author'        => rand(1, 30),
+            'author'        => rand(1, 15), // must coincide with number of authors
         ];
     }
 }
