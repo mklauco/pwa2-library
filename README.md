@@ -186,7 +186,7 @@
    ```
    1. include `{{ (Auth::user()->first_name) }}&nbsp;{{ (Auth::user()->last_name) }}` in `_header`.
 
-## Authors MVC (exercise)
+## Authors MVC (exercise/homework)
 1. Create a model with [migrations](https://laravel.com/docs/8.x/migrations), [factories](https://laravel.com/docs/8.x/database-testing#defining-model-factories) and [seeders](https://laravel.com/docs/8.x/seeding)
    1. run `php artisan make:model Authors -mfs` it will create new files in all subfolders of `database` folder
    1. run `php artisan migrate`
@@ -298,7 +298,7 @@ In the method `dropForeign` are the brackets important.
 1. Include true/false `debug` field in `users`, 
    1. run `php artisan make:migration add_debug_to_users --table="users"`
    1. set the default value to `false` in migration
-   1. prepare all associated views
+   1. update all associated views
    1. expand the template with tag value only for debug mode
    1. NOTE: this is not equal to user-rights
 
