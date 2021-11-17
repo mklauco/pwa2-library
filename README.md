@@ -158,7 +158,7 @@
     ```
 ## Users MVC (exercise work)
 1. Include *last login field* and *user IP address* visit [Add login time](https://laraveldaily.com/save-users-last-login-time-ip-address/)
-   1. run `php artisan make:migration add_login_fields_to_users_table`
+   1. run `php artisan make:migration add_login_fields_to_users_table --table="books"`
    1. expand the users table, don't forget to include `dropColumn` methods
    1. include `use Illuminate\Http\Request; use Carbon\Carbon;` in `LoginController` and include a method
    ```php
@@ -171,11 +171,11 @@
     }
    ```
    1. update the `index.blade.php` to see the results, note, that *null/empty* date results in actual time if using the `Carbon::parse()` method
-1. add logout route to view, check the logout implementation in `views/layouts/app.blade.php` and copy necessary lines to `views/layouts/app-coreui.blade`
+1. add logout route to view, check the logout implementation in `views/layouts/app.blade.php` and copy necessary lines to `views/_header.blade.php`
    1. modify `views/auth/login.blade.php` according to [CoreUI 3.4.0 login](https://coreui.io/demo/free/3.4.0/login.html)
    1. it is recommended to create layout for login page i.e. in `views/layouts/app-login-coreui.blade`
 1. Expand the `User` model with `first_name` and `last_name` and make changes to appropriate views
-   1. run `php artisan make:migration add_name_fields_to_users_table`
+   1. run `php artisan make:migration add_name_fields_to_users_table --table="users"`
    1. don;t forget to update fillable in `Models\User`
 1. Modify routes to include middleware-auth to access user data in blade
    1. update `web.php`
