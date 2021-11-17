@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Books;
+use App\Models\Authors;
 
 use Session;
 
 class BooksController extends Controller
 {
-
+  
   /**
   * Display a listing of the resource.
   *
@@ -19,7 +20,17 @@ class BooksController extends Controller
   public function index()
   {
     //
-    $books = Books::all();
+    // $books = Books::all();
+    // $books = Books::join('authors', 'books.author', '=', 'authors.id')->get();
+    $books = Books::join('authors', 'books.author', '=', 'authors.id')
+    ->select([
+      'books.*',
+      'first_name', 'last_name',
+      // 'authors.first_name AS first_name',
+      // 'authors.last_name AS last_name',
+      'books.id AS id'
+      ])->get();
+
     return view('books.index')->with('books', $books);
   }
   
@@ -31,7 +42,7 @@ class BooksController extends Controller
   public function create()
   {
     //
-    return view('books.create');
+    return view('books.create')->with('listAuthors', $this->listAuthors());
   }
   
   /**
@@ -51,9 +62,15 @@ class BooksController extends Controller
     ];
     $validated = $request->validate($v);
     
-    Books::create($request->all());
-    Session::flash('success', __('books.saved'));
-    return redirect('books');
+    try {
+      Books::create($request->all());
+      Session::flash('success', __('books.saved'));
+      return redirect('books');
+    } catch (\Exception $e) {
+      Session::flash('failure', $e->getMessage());
+      return redirect()->back()->withInput();
+    }
+    
   }
   
   /**
@@ -77,7 +94,8 @@ class BooksController extends Controller
   {
     //
     $books = Books::find($id);
-    return view('books.edit')->with('books', $books);
+
+    return view('books.edit')->with('books', $books)->with('listAuthors', $this->listAuthors());
   }
   
   /**
@@ -97,10 +115,15 @@ class BooksController extends Controller
       'author'        => 'required|numeric',
     ];
     $validated = $request->validate($v);
-
-    Books::find($id)->update($request->all());
-    Session::flash('success', __('books.updated'));
-    return redirect('books');
+    
+    try {
+      Books::find($id)->update($request->all());
+      Session::flash('success', __('books.updated'));
+      return redirect('books');
+    } catch (\Exception $e) {
+      Session::flash('failure', $e->getMessage());
+      return redirect()->back()->withInput();
+    }
   }
   
   /**
@@ -116,5 +139,5 @@ class BooksController extends Controller
     Session::flash('success', __('books.deleted'));
     return redirect('books');
   }
-
+  
 }

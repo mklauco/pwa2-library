@@ -23,6 +23,8 @@
                   <th>{{__('books.description')}}</th>
                   <th>{{__('books.genre')}}</th>
                   <th>{{__('books.author')}}</th>
+                  <th>{{__('books.created_at')}}</th>
+                  <th>{{__('books.updated_at')}}</th>
                   <th colspan="2">{{__('books.actions')}}</th>
                 </tr>
               </thead>
@@ -32,7 +34,7 @@
                   <td>{{$b->name}}</td>
                   <td>{{$b->description}}</td>
                   <td>{{$b->genre}}</td>
-                  <td>{{$b->author}}</td>
+                  <td>{{$b->first_name}} {{$b->last_name}}</td>
                   <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                   <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->format('G:i:s d.m.Y')}}</td>
                   <td><a href="{{route('books.edit', $b->id)}}">{{__('books.edit')}}</a></td>

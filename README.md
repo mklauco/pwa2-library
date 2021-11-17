@@ -1,9 +1,12 @@
 ## Blueprint from Exercise 1
 Do this before the Exercise 2
 1. `git pull`
-2. `git checkout main-E1`
+2. `git checkout exercise-3`
 3. `composer install`
-4. `php artisan migrate`
+4. `php artisan migrate:fresh`
+5. `php artisan db:seed`
+6. login with `a@a.com` and `password`
+
 
 ## Prerequisites
 1. Install [Composer](http://getcomposer.org)

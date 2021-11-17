@@ -38,7 +38,7 @@
           
           <div class="row">
             <div class="col-sm-12">
-              @include('templates.form-text', ['space' => 'books', 'tag' => 'author'])
+              @include('templates.form-select', ['space' => 'books', 'tag' => 'author', 'list' => $listAuthors])
             </div>
 
           </div>                

@@ -63,17 +63,7 @@
           
           <div class="row">
             <div class="col-sm-12">
-              <div class="form-group">
-                {{ Form::label('author', __('books.author')) }}:
-                @if($errors->has('author'))
-                {{ Form::text('author', '', ['class' => 'form-control is-invalid']) }}
-                @error('author')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-                @else
-                {{ Form::textarea('author', '', ['class' => 'form-control']) }}
-                @endif
-              </div>
+              @include('templates.form-select', ['space' => 'books', 'tag' => 'author', 'list' => $listAuthors])
             </div>
           </div>
           
