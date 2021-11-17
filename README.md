@@ -1,5 +1,5 @@
-## Blueprint from Exercise 1
-Do this before the Exercise 2
+## Blueprint from Exercise 3
+Do this before the Exercise 4
 1. `git pull`
 2. `git checkout exercise-3`
 3. `composer install`
