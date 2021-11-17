@@ -158,7 +158,7 @@
     ```
 ## Users MVC (exercise work)
 1. Include *last login field* and *user IP address* visit [Add login time](https://laraveldaily.com/save-users-last-login-time-ip-address/)
-   1. run `php artisan make:migration add_login_fields_to_users_table`
+   1. run `php artisan make:migration add_login_fields_to_users_table --table="books"`
    1. expand the users table, don't forget to include `dropColumn` methods
    1. include `use Illuminate\Http\Request; use Carbon\Carbon;` in `LoginController` and include a method
    ```php
@@ -171,11 +171,11 @@
     }
    ```
    1. update the `index.blade.php` to see the results, note, that *null/empty* date results in actual time if using the `Carbon::parse()` method
-1. add logout route to view, check the logout implementation in `views/layouts/app.blade.php` and copy necessary lines to `views/layouts/app-coreui.blade`
+1. add logout route to view, check the logout implementation in `views/layouts/app.blade.php` and copy necessary lines to `views/_header.blade.php`
    1. modify `views/auth/login.blade.php` according to [CoreUI 3.4.0 login](https://coreui.io/demo/free/3.4.0/login.html)
    1. it is recommended to create layout for login page i.e. in `views/layouts/app-login-coreui.blade`
 1. Expand the `User` model with `first_name` and `last_name` and make changes to appropriate views
-   1. run `php artisan make:migration add_name_fields_to_users_table`
+   1. run `php artisan make:migration add_name_fields_to_users_table --table="users"`
    1. don;t forget to update fillable in `Models\User`
 1. Modify routes to include middleware-auth to access user data in blade
    1. update `web.php`
@@ -186,7 +186,7 @@
    ```
    1. include `{{ (Auth::user()->first_name) }}&nbsp;{{ (Auth::user()->last_name) }}` in `_header`.
 
-## Authors MVC (exercise)
+## Authors MVC (exercise/homework)
 1. Create a model with [migrations](https://laravel.com/docs/8.x/migrations), [factories](https://laravel.com/docs/8.x/database-testing#defining-model-factories) and [seeders](https://laravel.com/docs/8.x/seeding)
    1. run `php artisan make:model Authors -mfs` it will create new files in all subfolders of `database` folder
    1. run `php artisan migrate`
@@ -298,7 +298,7 @@ In the method `dropForeign` are the brackets important.
 1. Include true/false `debug` field in `users`, 
    1. run `php artisan make:migration add_debug_to_users --table="users"`
    1. set the default value to `false` in migration
-   1. prepare all associated views
+   1. update all associated views
    1. expand the template with tag value only for debug mode
    1. NOTE: this is not equal to user-rights
 
