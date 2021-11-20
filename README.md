@@ -303,6 +303,8 @@ In the method `dropForeign` are the brackets important.
    1. NOTE: this is not equal to user-rights
 
 ## Full database (exercise work)
+A reminder to check all [column modifiers in migrations](https://laravel.com/docs/8.x/migrations#available-column-types)
+
 1. Readers = Users 
    1. expand the `users` table with `php artisan make:migration add_data_to_users_table`
    1. update the migration file
@@ -314,6 +316,28 @@ In the method `dropForeign` are the brackets important.
    $table->string('zip')->default(null)->nullable();
    ```
    1. check `database/factories/UserFactory.php` and `database/seeders/UserAdminSeeder.php`
+1. create BookLoan MVC, 
+   1. `php artisan make:model BookLoan -a` creates also the controller
+   1. the migration
+   ```php
+      $table->id();
+      $table->unsignedBigInteger('user_id');
+      $table->foreign('user_id')->references('id')->on('users');
+      $table->timestamp('loaned_at');
+      $table->timestamps();
+   ```
+   1. the factory
+   ```php
+        return [
+            'user_id'   => rand(1, 10),
+            'loaned_at' => $this->faker->dateTimeThisYear()
+        ];
+   ```
+   1. the seeder, do not forget to add `use App\Models\BookLoan;` and then include `$this->call(BookLoanSeeder::class);` in the master seeder
+   ```php
+      BookLoan::factory(15)->create();
+   ```
+   1. `php artisan migrate:fresh; php artisan db:seed`
 1. 
 
 ## prettify the look
