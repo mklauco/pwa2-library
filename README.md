@@ -338,7 +338,10 @@ A reminder to check all [column modifiers in migrations](https://laravel.com/doc
       BookLoan::factory(15)->create();
    ```
    1. `php artisan migrate:fresh; php artisan db:seed`
-1. 
+1. Skip the BookLoanItem (sk. Položka)
+1. Create the BookPrintout MVC (sk. Exemplár)
+   1. `php artisan make:model BookPrintout -a`
+   1. 
 
 ## prettify the look
 1. favicon generator: https://www.favicon-generator.org/
