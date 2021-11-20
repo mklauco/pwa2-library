@@ -293,7 +293,7 @@ In the method `dropForeign` are the brackets important.
    ```
    1. run `php artisan db:seed` to seed the database with fresh data
 
-## Advanced debugging environment
+## Advanced debugging environment (exercise work)
 1. install [Debugbar](https://github.com/barryvdh/laravel-debugbar)
 1. Include true/false `debug` field in `users`, 
    1. run `php artisan make:migration add_debug_to_users --table="users"`
@@ -302,6 +302,19 @@ In the method `dropForeign` are the brackets important.
    1. expand the template with tag value only for debug mode
    1. NOTE: this is not equal to user-rights
 
+## Full database (exercise work)
+1. Readers = Users 
+   1. expand the `users` table with `php artisan make:migration add_data_to_users_table`
+   1. update the migration file
+   ```php
+   $table->string('personal_number')->default(null)->nullable();
+   $table->string('street')->default(null)->nullable();
+   $table->string('street_number')->default(null)->nullable();
+   $table->string('city')->default(null)->nullable();
+   $table->string('zip')->default(null)->nullable();
+   ```
+   1. check `database/factories/UserFactory.php` and `database/seeders/UserAdminSeeder.php`
+1. 
 
 ## prettify the look
 1. favicon generator: https://www.favicon-generator.org/
