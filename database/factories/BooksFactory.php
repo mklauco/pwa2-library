@@ -22,8 +22,8 @@ class BooksFactory extends Factory
     public function definition()
     {
         return [
-            'name'          => implode($this->faker->words(3), ' '),
-            'description'   => implode($this->faker->words(10), ' '),
+            'name'          => $this->faker->catchPhrase(),
+            'description'   => $this->faker->paragraph(),
             'genre'         => $this->faker->randomElement(['novel', 'drama', 'documentary']),
             'author'        => rand(1, 15), // must coincide with number of authors
         ];

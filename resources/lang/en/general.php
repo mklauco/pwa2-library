@@ -8,4 +8,5 @@ return [
   'delete'        => 'Delete',
   'last_login_at' => 'Last login',
   'last_login_ip' => 'User\'s IP address',
+  'id'            => '#ID'
 ];

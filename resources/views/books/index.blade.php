@@ -18,20 +18,24 @@
             <table class="table table-responsive-sm">
               <thead>
                 <tr>
+                  <th class="text-muted">{{__('general.id')}}</th>
                   <th>{{__('books.name')}}</th>
                   <th>{{__('books.description')}}</th>
                   <th>{{__('books.genre')}}</th>
                   <th>{{__('books.author')}}</th>
+                  <th>{{__('books.no_printouts')}}</th>
                   <th colspan="2">{{__('books.actions')}}</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($books as $b)
                 <tr>
+                  <td class="text-muted">{{$b->id}}</td>
                   <td>{{$b->name}}</td>
                   <td>{{$b->description}}</td>
                   <td>{{$b->genre}}</td>
                   <td>{{$b->author_first_name}}&nbsp;{{$b->last_first_name}}</td>
+                  <td>{{$b->printouts->count()}}</td>
                   <td>{!! Html::linkRoute('books.edit', __('books.edit'), ['book' => $b->id], array('class' => 'theme-color' )) !!}</td>
                   <td>
                     {!! Form::open(array('route' => ['books.destroy', $b->id], 'method'=>'DELETE')) !!}
@@ -42,6 +46,7 @@
                 @endforeach
               </tbody>
             </table> 
+            {{ $books->links('vendor.pagination.bootstrap-4') }}
             @else
             Start with insert a book into the database.
             @endif

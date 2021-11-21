@@ -18,6 +18,21 @@
     </a>
   </li>
 
+
+  <li class="c-sidebar-nav-item">
+    <a class="c-sidebar-nav-link {{ Request::is('printouts*') ? 'c-active' : '' }}" href="{{route('printouts.index')}}">
+      <i class="c-sidebar-nav-icon cil-folder-open"></i>
+      Printouts
+    </a>
+  </li>
+
+  <li class="c-sidebar-nav-item">
+    <a class="c-sidebar-nav-link {{ Request::is('loans*') ? 'c-active' : '' }}" href="{{route('loans.index')}}">
+      <i class="c-sidebar-nav-icon cil-folder-open"></i>
+      Loans
+    </a>
+  </li>
+
   <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link {{ Request::is('authors*') ? 'c-active' : '' }}" href="{{route('authors.index')}}">
       <i class="c-sidebar-nav-icon cil-address-book"></i>
