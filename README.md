@@ -58,7 +58,7 @@ A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.
    ```
 1. create BookLoan MVC
    1. `php artisan make:model BookLoan -a` creates also the controller
-   1. the migration
+   2. the migration
    ```php
       $table->id();
       $table->unsignedBigInteger('user_id');
@@ -66,25 +66,25 @@ A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.
       $table->timestamp('loaned_at');
       $table->timestamps();
    ```
-   1. the factory
+   3. the factory
    ```php
         return [
             'user_id'   => rand(1, 10),
             'loaned_at' => $this->faker->dateTimeThisYear()
         ];
    ```
-   1. the seeder, do not forget to add `use App\Models\BookLoan;` and then include `$this->call(BookLoanSeeder::class);` in the master seeder
+   4. the seeder, do not forget to add `use App\Models\BookLoan;` and then include `$this->call(BookLoanSeeder::class);` in the master seeder
    ```php
       BookLoan::factory(15)->create();
    ```
-   1. `php artisan migrate:fresh; php artisan db:seed`
+   5. `php artisan migrate:fresh; php artisan db:seed`
 1. *Skip the BookLoanItem* (sk. Položka), we will make it as the last one
 1. Create the BookPrintout MVC (sk. Exemplár)
    1. `php artisan make:model BookPrintout -a`
    1. fill the rest by yourself :)
    1. In `books/index.blade.php` include column showing total number of printouts of given book
       1. do it the hard-way with joins and
-      1. do it the easy way with `hasMany()` method with *Eloquent*, update the `Books` model with (dig deeper into [Eloquent Relationships](https://laravel.com/docs/8.x/eloquent-relationships))
+      2. do it the easy way with `hasMany()` method with *Eloquent*, update the `Books` model with (dig deeper into [Eloquent Relationships](https://laravel.com/docs/8.x/eloquent-relationships))
       ```php
       // Books hasMany printouts
       public function printouts(){
