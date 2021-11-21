@@ -2,6 +2,10 @@
 ## Full database (exercise work)
 A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.x/migrations#available-column-types)
 
+CoreUI template docs [LINK](https://coreui.io/docs/getting-started/introduction/)
+
+Faker docs [LINK](https://fakerphp.github.io/formatters/)
+
 
 1. Readers = Users 
    1. expand the `users` table with `php artisan make:migration add_data_to_users_table`
