@@ -342,11 +342,19 @@ A reminder to check all [column modifiers in migrations](https://laravel.com/doc
 1. Create the BookPrintout MVC (sk. Exemplár)
    1. `php artisan make:model BookPrintout -a`
    1. fill the rest by yourself :)
+   1. In `books/index.blade.php` include column showing total number of printouts of given book
+      1. do it the hard-way with joins and
+      1. do it the easy way with `hasMany()` method with *Eloquent*
 1. Create the BookLoanItem MVC (sk. Položka)
    1. fill the rest by yourself :)
 
+## Paginator
+1. `$books = Books::join(...)->paginate(10);`
+1. run `php artisan vendor:publish --tag=laravel-pagination` to publish the view template
+1. after the `</table>` tag insert `{{ $books->links('vendor.pagination.bootstrap-4') }}`
 ## prettify the look
 1. favicon generator: https://www.favicon-generator.org/
+
 
 
 

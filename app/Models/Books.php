@@ -12,4 +12,9 @@ class Books extends Model
     use SoftDeletes;
 
     protected $fillable = ['name', 'description', 'genre', 'author'];
+
+    // Books hasMany printouts
+    public function printouts(){
+        return $this->hasMany(BookPrintout::class, 'book_id', 'id');
+    }
 }
