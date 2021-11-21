@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class BookLoanItem extends Model
 {
     use HasFactory;
+
+    
 }
