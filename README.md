@@ -315,8 +315,50 @@ A reminder to check all [column modifiers in migrations](https://laravel.com/doc
    $table->string('city')->default(null)->nullable();
    $table->string('zip')->default(null)->nullable();
    ```
-   1. check `database/factories/UserFactory.php` and `database/seeders/UserAdminSeeder.php`
-1. create BookLoan MVC, 
+   1. The factory `database/factories/UserFactory.php` 
+   ```php
+        $n = $this->faker->firstName();
+        $l = $this->faker->lastName();
+        return [
+            'name'                => $n.' '.$l,
+            'first_name'          => $n,
+            'last_name'           => $l,
+            'email'               => $this->faker->safeEmail(),
+            'email_verified_at'   => now(),
+            'password'            => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token'      => Str::random(10),
+            'personal_number'     => $this->faker->randomNumber(9, true),
+            'street'              => $this->faker->streetName(),
+            'street_number'       => $this->faker->buildingNumber(),
+            'city'                => $this->faker->city(),
+            'postcode'            => $this->faker->postcode(),
+        ];
+   ```
+   1. Add Admin Seeder `database/seeders/UserAdminSeeder.php`
+   ```php
+        $faker = \Faker\Factory::create();
+        DB::table('users')->insert([
+            'name'                => 'Martin Klaučo',
+            'first_name'          => 'Martin',
+            'last_name'           => 'Klaučo',
+            'email'               => 'martin.klauco@stuba.sk',
+            'email_verified_at'   => now(),
+            'password'            => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token'      => Str::random(10),
+            'personal_number'     => $faker->randomNumber(9, true),
+            'street'              => $faker->streetName(),
+            'street_number'       => $faker->buildingNumber(),
+            'city'                => $faker->city(),
+            'postcode'            => $faker->postcode(),
+        ]);
+   ```
+   1. update the master seeder
+   ```php
+        $this->call(UserAdminSeeder::class);
+        \App\Models\User::factory(10)->create();
+        ...
+   ```
+1. create BookLoan MVC
    1. `php artisan make:model BookLoan -a` creates also the controller
    1. the migration
    ```php
