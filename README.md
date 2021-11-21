@@ -13,7 +13,7 @@ A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.
    $table->string('city')->default(null)->nullable();
    $table->string('zip')->default(null)->nullable();
    ```
-   1. The factory `database/factories/UserFactory.php` 
+   3. The factory `database/factories/UserFactory.php` 
    ```php
         $n = $this->faker->firstName();
         $l = $this->faker->lastName();
@@ -32,7 +32,7 @@ A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.
             'postcode'            => $this->faker->postcode(),
         ];
    ```
-   1. Add Admin Seeder `database/seeders/UserAdminSeeder.php`
+   4. Add Admin Seeder `database/seeders/UserAdminSeeder.php`
    ```php
         $faker = \Faker\Factory::create();
         DB::table('users')->insert([
@@ -50,7 +50,7 @@ A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.
             'postcode'            => $faker->postcode(),
         ]);
    ```
-   1. update the master seeder
+   5. update the master seeder
    ```php
         $this->call(UserAdminSeeder::class);
         \App\Models\User::factory(10)->create();
