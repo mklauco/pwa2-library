@@ -1,4 +1,13 @@
 # Exercise 4 (2021-11-22)
+## Advanced debugging environment (exercise work)
+1. install [Debugbar](https://github.com/barryvdh/laravel-debugbar)
+## Advanced debugging environment (homework work)
+1. Include true/false `debug` field in `users`, 
+   1. run `php artisan make:migration add_debug_to_users --table="users"`
+   1. set the default value to `false` in migration
+   1. update all associated views
+   1. expand the template with tag value only for debug mode
+   1. NOTE: this is not equal to user-rights
 ## Full database (exercise work)
 A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.x/migrations#available-column-types)
 
@@ -418,14 +427,7 @@ In the method `dropForeign` are the brackets important.
    ```
    1. run `php artisan db:seed` to seed the database with fresh data
 
-## Advanced debugging environment (exercise work)
-1. install [Debugbar](https://github.com/barryvdh/laravel-debugbar)
-1. Include true/false `debug` field in `users`, 
-   1. run `php artisan make:migration add_debug_to_users --table="users"`
-   1. set the default value to `false` in migration
-   1. update all associated views
-   1. expand the template with tag value only for debug mode
-   1. NOTE: this is not equal to user-rights
+
 
 
 ## prettify the look
