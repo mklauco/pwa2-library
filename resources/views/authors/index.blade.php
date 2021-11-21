@@ -16,8 +16,9 @@
           <table class="table">
             <thead>
               <tr>
-                <th>{{__('general.id')}}</th>
+                <th class="text-muted">{{__('general.id')}}</th>
                 <th>{{__('authors.name')}}</th>
+                <th>{{__('authors.no_books')}}</th>
                 <th>{{__('general.created_at')}}</th>
                 <th>{{__('general.updated_at')}}</th>
                 <th colspan="2">{{__('general.actions')}}</th>
@@ -26,8 +27,9 @@
             <tbody>
               @foreach ($authors as $b)
               <tr @if(!is_null($b->deleted_at)) class="text-black-50" @endif>
-                <td>{{$b->id}}</td>
+                <td class="text-muted">{{$b->id}}</td>
                 <td>{{$b->first_name}}&nbsp;{{$b->last_name}}</td>
+                <td>{{$b->books()->count()}}</td>
                 <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{!! Html::linkRoute('authors.edit', __('general.edit'), ['author' => $b->id], array('class' => 'theme-color' )) !!}</td>

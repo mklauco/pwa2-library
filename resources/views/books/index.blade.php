@@ -23,7 +23,7 @@
                   <th>{{__('books.description')}}</th>
                   <th>{{__('books.genre')}}</th>
                   <th>{{__('books.author')}}</th>
-                  <th>{{__('books.printouts')}}</th>
+                  <th>{{__('books.no_printouts')}}</th>
                   <th colspan="2">{{__('books.actions')}}</th>
                 </tr>
               </thead>
