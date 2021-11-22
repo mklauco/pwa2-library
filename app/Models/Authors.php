@@ -11,4 +11,10 @@ class Authors extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    // Books hasMany printouts
+    public function books(){
+        return $this->hasMany(Books::class, 'author', 'id');
+    }
+
 }

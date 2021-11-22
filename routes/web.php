@@ -25,4 +25,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('books', App\Http\Controllers\BooksController::class);
     Route::resource('users', App\Http\Controllers\UsersController::class);
     Route::resource('authors', App\Http\Controllers\AuthorsController::class);
+    Route::resource('printouts', App\Http\Controllers\BookPrintoutController::class);
+    Route::resource('loans-items', App\Http\Controllers\BookLoanItemController::class);
+    Route::resource('loans', App\Http\Controllers\BookLoanController::class);
+    
 });

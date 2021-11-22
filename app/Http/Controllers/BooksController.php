@@ -10,26 +10,23 @@ use Session;
 
 class BooksController extends Controller
 {
-  /**
-  * Display a listing of the resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
   public function index()
   {
     //
-    $books = Books::join('authors', 'books.author', '=', 'authors.id')->select(['books.*', 'authors.first_name AS author_first_name', 'authors.last_name AS last_first_name'])->get();
+    $books = Books::with('printouts')->join('authors', 'books.author', '=', 'authors.id')->select([
+    'books.*',
+    'authors.first_name AS author_first_name',
+    'authors.last_name AS last_first_name',
+      ])->paginate(10);
     return view('books.index')->with('books', $books);
+    
   }
   
   public function create()
   {
-    //
-    // dd($this->authorList());
     return view('books.create')->with('authorList', $this->authorList());
   }
-  
-  
+
   public function store(Request $request)
   {
     //

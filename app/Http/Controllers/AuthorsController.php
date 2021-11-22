@@ -13,7 +13,7 @@ class AuthorsController extends Controller
     public function index()
     {
         //
-        $authors = Authors::withTrashed()->get();
+        $authors = Authors::with('books')->withTrashed()->get();
         return view('authors.index')->with('authors', $authors);
     }
     
