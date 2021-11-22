@@ -15,7 +15,6 @@ class BooksSeeder extends Seeder
     public function run()
     {
         //
-        Books::where('id', '>', 0)->delete();
         Books::factory(40)->create();
     }
 }

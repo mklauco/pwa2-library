@@ -7,29 +7,40 @@ use Illuminate\Http\Request;
 use App\Models\Books;
 use App\Models\Authors;
 
+use Illuminate\Support\Facades\DB;
+
 use Session;
 
 class BooksController extends Controller
 {
-  
-  /**
-  * Display a listing of the resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
+
+  private $var;
+
+  public function __construct(){
+    $this->var = 4;
+  }
+
   public function index()
   {
     //
+
     // $books = Books::all();
     // $books = Books::join('authors', 'books.author', '=', 'authors.id')->get();
-    $books = Books::join('authors', 'books.author', '=', 'authors.id')
-    ->select([
-      'books.*',
-      'first_name', 'last_name',
-      // 'authors.first_name AS first_name',
-      // 'authors.last_name AS last_name',
-      'books.id AS id'
-      ])->get();
+    // $books = Books::join('authors', 'books.author', '=', 'authors.id')
+    // ->join('book_printouts', 'books.id', '=', 'book_printouts.book_id')
+    // ->select([
+    //   'books.*',
+    //   'first_name', 'last_name',
+    //   'books.id AS id',
+    //   DB::raw('count(*) as no_printout'),
+    //   ])->groupBy('books.id')->get();
+
+      $books = Books::with('printouts')->join('authors', 'books.author', '=', 'authors.id')
+       ->select([
+        'books.*',
+        'first_name', 'last_name',
+        'books.id AS id',
+        ])->get();
 
     return view('books.index')->with('books', $books);
   }

@@ -15,6 +15,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+
     protected function defaultPassword(){
         return 'fchpt2021';
     }
