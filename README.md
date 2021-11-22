@@ -1,7 +1,7 @@
 ## Blueprint from Exercise 3 (optional, not necessary)
 Do this before the Exercise 4
 1. `git pull`
-2. `git checkout exercise-3`
+2. `git checkout exercise-4`
 3. `composer install`
 4. `php artisan migrate:fresh`
 5. `php artisan db:seed`
