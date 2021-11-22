@@ -1,11 +1,144 @@
-## Blueprint from Exercise 3
+## Blueprint from Exercise 3 (optional, not necessary)
 Do this before the Exercise 4
 1. `git pull`
 2. `git checkout exercise-3`
 3. `composer install`
 4. `php artisan migrate:fresh`
 5. `php artisan db:seed`
-6. login with `a@a.com` and `password`
+6. login with your stuba mail and `password`
+
+# Exercise 4 (2021-11-22)
+## Advanced debugging environment (exercise work)
+1. install [Debugbar](https://github.com/barryvdh/laravel-debugbar)
+## Advanced debugging environment (homework work)
+1. Include true/false `debug` field in `users`, 
+   1. run `php artisan make:migration add_debug_to_users --table="users"`
+   1. set the default value to `false` in migration
+   1. update all associated views
+   1. expand the template with tag value only for debug mode
+   1. NOTE: this is not equal to user-rights
+## Full database (exercise work)
+A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.x/migrations#available-column-types)
+
+CoreUI template docs [LINK](https://coreui.io/docs/getting-started/introduction/)
+
+Faker docs [LINK](https://fakerphp.github.io/formatters/)
+
+
+1. Readers = Users 
+   1. expand the `users` table with `php artisan make:migration add_data_to_users_table`
+   1. update the migration file
+   ```php
+   $table->string('personal_number')->default(null)->nullable();
+   $table->string('street')->default(null)->nullable();
+   $table->string('street_number')->default(null)->nullable();
+   $table->string('city')->default(null)->nullable();
+   $table->string('zip')->default(null)->nullable();
+   ```
+   3. The factory `database/factories/UserFactory.php` 
+   ```php
+        $n = $this->faker->firstName();
+        $l = $this->faker->lastName();
+        return [
+            'name'                => $n.' '.$l,
+            'first_name'          => $n,
+            'last_name'           => $l,
+            'email'               => $this->faker->safeEmail(),
+            'email_verified_at'   => now(),
+            'password'            => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token'      => Str::random(10),
+            'personal_number'     => $this->faker->randomNumber(9, true),
+            'street'              => $this->faker->streetName(),
+            'street_number'       => $this->faker->buildingNumber(),
+            'city'                => $this->faker->city(),
+            'postcode'            => $this->faker->postcode(),
+        ];
+   ```
+   4. Add Admin Seeder `database/seeders/UserAdminSeeder.php`
+   ```php
+        $faker = \Faker\Factory::create();
+        DB::table('users')->insert([
+            'name'                => 'Martin Klaučo',
+            'first_name'          => 'Martin',
+            'last_name'           => 'Klaučo',
+            'email'               => 'martin.klauco@stuba.sk',
+            'email_verified_at'   => now(),
+            'password'            => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token'      => Str::random(10),
+            'personal_number'     => $faker->randomNumber(9, true),
+            'street'              => $faker->streetName(),
+            'street_number'       => $faker->buildingNumber(),
+            'city'                => $faker->city(),
+            'postcode'            => $faker->postcode(),
+        ]);
+   ```
+   5. update the master seeder
+   ```php
+        $this->call(UserAdminSeeder::class);
+        \App\Models\User::factory(10)->create();
+        ...
+   ```
+1. create BookLoan MVC
+   1. `php artisan make:model BookLoan -a` creates also the controller
+   2. the migration
+   ```php
+      $table->id();
+      $table->unsignedBigInteger('user_id');
+      $table->foreign('user_id')->references('id')->on('users');
+      $table->timestamp('loaned_at');
+      $table->timestamps();
+   ```
+   3. the factory
+   ```php
+        return [
+            'user_id'   => rand(1, 10),
+            'loaned_at' => $this->faker->dateTimeThisYear()
+        ];
+   ```
+   4. the seeder, do not forget to add `use App\Models\BookLoan;` and then include `$this->call(BookLoanSeeder::class);` in the master seeder
+   ```php
+      BookLoan::factory(15)->create();
+   ```
+   5. `php artisan migrate:fresh; php artisan db:seed`
+1. *Skip the BookLoanItem* (sk. Položka), we will make it as the last one
+1. Create the BookPrintout MVC (sk. Exemplár)
+   1. `php artisan make:model BookPrintout -a`
+   1. fill the rest by yourself :)
+   1. In `books/index.blade.php` include column showing total number of printouts of given book
+      1. do it the hard-way with joins and
+      2. do it the easy way with `hasMany()` method with *Eloquent*, update the `Books` model with (dig deeper into [Eloquent Relationships](https://laravel.com/docs/8.x/eloquent-relationships))
+      ```php
+      // Books hasMany printouts
+      public function printouts(){
+          return $this->hasMany(BookPrintout::class, 'book_id', 'id');
+      }
+      ```
+      then in the controller use
+      ```php
+      $books = Books::with('printouts')->join('authors', 'books.author', '=', 'authors.id')->select([
+      'books.*',
+      'authors.first_name AS author_first_name',
+      'authors.last_name AS last_first_name',
+      ])->get(); // or use ->paginate(10)
+      ```
+      and in the blade use `$b->printouts->count()`.
+   1. In `printouts/index.blade.php` show all printouts with book name
+      1. update the *BookPrintout* model with
+      ```php
+         // Printout hasOne book
+         public function book(){
+            return $this->hasOne(Books::class, 'id', 'book_id');
+         }
+      ```
+      and the blade with `$b->book->name`.
+
+1. Create the BookLoanItem MVC (sk. Položka)
+   1. fill the rest by yourself :)
+
+## Paginator
+1. `$books = Books::join(...)->paginate(10);`
+1. run `php artisan vendor:publish --tag=laravel-pagination` to publish the view template
+1. after the `</table>` tag insert `{{ $books->links('vendor.pagination.bootstrap-4') }}`
 
 
 ## Prerequisites
