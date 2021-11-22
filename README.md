@@ -1,6 +1,19 @@
 # Exercise 4 (2021-11-22)
+## Advanced debugging environment (exercise work)
+1. install [Debugbar](https://github.com/barryvdh/laravel-debugbar)
+## Advanced debugging environment (homework work)
+1. Include true/false `debug` field in `users`, 
+   1. run `php artisan make:migration add_debug_to_users --table="users"`
+   1. set the default value to `false` in migration
+   1. update all associated views
+   1. expand the template with tag value only for debug mode
+   1. NOTE: this is not equal to user-rights
 ## Full database (exercise work)
 A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.x/migrations#available-column-types)
+
+CoreUI template docs [LINK](https://coreui.io/docs/getting-started/introduction/)
+
+Faker docs [LINK](https://fakerphp.github.io/formatters/)
 
 
 1. Readers = Users 
@@ -13,7 +26,7 @@ A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.
    $table->string('city')->default(null)->nullable();
    $table->string('zip')->default(null)->nullable();
    ```
-   1. The factory `database/factories/UserFactory.php` 
+   3. The factory `database/factories/UserFactory.php` 
    ```php
         $n = $this->faker->firstName();
         $l = $this->faker->lastName();
@@ -32,7 +45,7 @@ A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.
             'postcode'            => $this->faker->postcode(),
         ];
    ```
-   1. Add Admin Seeder `database/seeders/UserAdminSeeder.php`
+   4. Add Admin Seeder `database/seeders/UserAdminSeeder.php`
    ```php
         $faker = \Faker\Factory::create();
         DB::table('users')->insert([
@@ -50,7 +63,7 @@ A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.
             'postcode'            => $faker->postcode(),
         ]);
    ```
-   1. update the master seeder
+   5. update the master seeder
    ```php
         $this->call(UserAdminSeeder::class);
         \App\Models\User::factory(10)->create();
@@ -58,7 +71,7 @@ A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.
    ```
 1. create BookLoan MVC
    1. `php artisan make:model BookLoan -a` creates also the controller
-   1. the migration
+   2. the migration
    ```php
       $table->id();
       $table->unsignedBigInteger('user_id');
@@ -66,25 +79,25 @@ A reminder to check [column modifiers in migrations](https://laravel.com/docs/8.
       $table->timestamp('loaned_at');
       $table->timestamps();
    ```
-   1. the factory
+   3. the factory
    ```php
         return [
             'user_id'   => rand(1, 10),
             'loaned_at' => $this->faker->dateTimeThisYear()
         ];
    ```
-   1. the seeder, do not forget to add `use App\Models\BookLoan;` and then include `$this->call(BookLoanSeeder::class);` in the master seeder
+   4. the seeder, do not forget to add `use App\Models\BookLoan;` and then include `$this->call(BookLoanSeeder::class);` in the master seeder
    ```php
       BookLoan::factory(15)->create();
    ```
-   1. `php artisan migrate:fresh; php artisan db:seed`
+   5. `php artisan migrate:fresh; php artisan db:seed`
 1. *Skip the BookLoanItem* (sk. Položka), we will make it as the last one
 1. Create the BookPrintout MVC (sk. Exemplár)
    1. `php artisan make:model BookPrintout -a`
    1. fill the rest by yourself :)
    1. In `books/index.blade.php` include column showing total number of printouts of given book
       1. do it the hard-way with joins and
-      1. do it the easy way with `hasMany()` method with *Eloquent*, update the `Books` model with (dig deeper into [Eloquent Relationships](https://laravel.com/docs/8.x/eloquent-relationships))
+      2. do it the easy way with `hasMany()` method with *Eloquent*, update the `Books` model with (dig deeper into [Eloquent Relationships](https://laravel.com/docs/8.x/eloquent-relationships))
       ```php
       // Books hasMany printouts
       public function printouts(){
@@ -414,14 +427,7 @@ In the method `dropForeign` are the brackets important.
    ```
    1. run `php artisan db:seed` to seed the database with fresh data
 
-## Advanced debugging environment (exercise work)
-1. install [Debugbar](https://github.com/barryvdh/laravel-debugbar)
-1. Include true/false `debug` field in `users`, 
-   1. run `php artisan make:migration add_debug_to_users --table="users"`
-   1. set the default value to `false` in migration
-   1. update all associated views
-   1. expand the template with tag value only for debug mode
-   1. NOTE: this is not equal to user-rights
+
 
 
 ## prettify the look
