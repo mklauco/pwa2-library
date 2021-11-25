@@ -23,7 +23,7 @@ class BookLoanFactory extends Factory
     {
         return [
             'user_id'   => rand(1, 10),
-            'loaned_at' => $this->faker->dateTimeThisYear()
+            'loaned_at' => $this->faker->dateTimeInInterval('-6 week', '+1 days')
         ];
     }
 }

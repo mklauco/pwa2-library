@@ -24,7 +24,7 @@ class BookLoanItemFactory extends Factory
         return [
             'book_printout_id' => rand(1, 20), // watch for BookPrintoutSeeder
             'book_loan_id' => rand(1, 15), // watch for BookLoanSeeder
-            'returned_at' => $this->faker->dateTimeThisYear(),
+            'returned_at' => $this->faker->dateTimeThisMonth(),
         ];
     }
 }

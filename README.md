@@ -1,3 +1,39 @@
+# Exercise 5 (2021-11-29)
+1. Prepare the view for all loans
+   1. add mutators to the `BookLoanItem`
+   ```php
+   public function printout(){
+       return $this->hasOne(BookPrintout::class, 'id', 'book_printout_id');
+   }
+
+   public function loan(){
+       return $this->hasOne(BookLoan::class, 'id', 'book_loan_id');
+    }
+
+   public function book(){
+       return $this->hasOneThrough(
+           Books::class,
+           BookPrintout::class,
+           'id',
+           'id',
+           'book_printout_id',
+           'id'
+       );
+   }
+
+   public function user(){
+       return $this->hasOneThrough(
+           User::class,
+           BookLoan::class,
+           'id',
+           'id',
+           'book_loan_id',
+           'user_id'
+       );
+   }
+   ```
+1. Experiment with Query builder and access various information from database tables.
+
 # Exercise 4 (2021-11-22)
 ## Advanced debugging environment (exercise work)
 1. install [Debugbar](https://github.com/barryvdh/laravel-debugbar)

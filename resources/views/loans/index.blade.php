@@ -12,6 +12,12 @@
           </div>
         </div>
         <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">Number of loans:</dt><dd class="col-sm-9">{{$loans->count()}}</dd>
+            <dt class="col-sm-3">Book with the highest loan count:</dt><dd class="col-sm-9"></dd>
+            <dt class="col-sm-3">User with the highest loan count:</dt><dd class="col-sm-9"></dd>
+            <dt class="col-sm-3">Number of books with longer than 30-day return period:</dt><dd class="col-sm-9"></dd>
+          </dl>
           @if($loans->count() > 0)
           <table class="table">
             <thead>
@@ -19,7 +25,9 @@
                 <th class="text-muted">{{__('general.id')}}</th>
                 <th>{{__('users.name')}}</th>
                 <th>{{__('books.name')}}</th>
+                <th>{{__('loans.loans_length')}}</th>
                 <th>{{__('loans.loaned_at')}}</th>
+                <th>{{__('loans.returned_at')}}</th>
                 <th>{{__('general.created_at')}}</th>
                 <th>{{__('general.updated_at')}}</th>
                 <th colspan="2">{{__('general.actions')}}</th>
@@ -29,9 +37,11 @@
               @foreach ($loans as $b)
               <tr @if(!is_null($b->deleted_at)) class="text-black-50" @endif>
                 <td class="text-muted">{{$b->id}}</td>
-                <td>{{$b->user->name}}</td>
-                <td>n/a</td>
-                <td>{{$b->loaned_at}}</td>
+                <td>{{$b->user->first_name}}&nbsp;{{$b->user->last_name}}</td>
+                <td>{{$b->book->name}}</td>
+                <td>{{$loan_length[$b->id]}}</td>
+                <td>{{Carbon\Carbon::parse($b->loan->loaned_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
+                <td>{{Carbon\Carbon::parse($b->returned_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{!! Html::linkRoute('loans.edit', __('general.edit'), ['loan' => $b->id], array('class' => 'theme-color' )) !!}</td>
