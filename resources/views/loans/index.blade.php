@@ -13,10 +13,23 @@
         </div>
         <div class="card-body">
           <dl class="row">
-            <dt class="col-sm-3">Number of loans:</dt><dd class="col-sm-9">{{$loans->count()}}</dd>
-            <dt class="col-sm-3">Book with the highest loan count:</dt><dd class="col-sm-9"></dd>
-            <dt class="col-sm-3">User with the highest loan count:</dt><dd class="col-sm-9"></dd>
-            <dt class="col-sm-3">Number of books with longer than 30-day return period:</dt><dd class="col-sm-9"></dd>
+            <dt class="col-sm-3">Number of loans:</dt>
+            <dd class="col-sm-9">{{$loans->count()}}</dd>
+
+            <dt class="col-sm-3">Date of earliest loaned book</dt>
+            <dd class="col-sm-9">{{$bookParams['earliestLoan']->loaned_at}}</dd>
+
+            <dt class="col-sm-3">Date of latest returned book</dt>
+            <dd class="col-sm-9">{{$bookParams['latestReturn']->returned_at}}</dd>
+
+            <dt class="col-sm-3">Book with the highest loan count:</dt>
+            <dd class="col-sm-9">{{$bookParams['bookHighestCount']}}</dd>
+
+            <dt class="col-sm-3">User with the highest loan count:</dt>
+            <dd class="col-sm-9">{{$bookParams['userHighestCount']}}</dd>
+
+            <dt class="col-sm-3">Number of books with longer than 30-day return period:</dt>
+            <dd class="col-sm-9">{{$longerThan30}}</dd> 
           </dl>
           @if($loans->count() > 0)
           <table class="table">
@@ -39,7 +52,7 @@
                 <td class="text-muted">{{$b->id}}</td>
                 <td>{{$b->user->first_name}}&nbsp;{{$b->user->last_name}}</td>
                 <td>{{$b->book->name}}</td>
-                <td>{{$loan_length[$b->id]}}</td>
+                <td>{{$loanLength[$b->id]}}</td>
                 <td>{{Carbon\Carbon::parse($b->loan->loaned_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->returned_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>

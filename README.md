@@ -1,6 +1,7 @@
 # Exercise 5 (2021-11-29)
 1. Prepare the view for all loans
-   1. add mutators to the `BookLoanItem`
+   1. Display following fields in the table: *User name*, *Book Title*, *Loaned at*, *Returned at*, *Loan length*
+   1. Use mutators to the `BookLoanItem` to achieve the previous task
    ```php
    public function printout(){
        return $this->hasOne(BookPrintout::class, 'id', 'book_printout_id');
@@ -32,7 +33,33 @@
        );
    }
    ```
+1. Include a column in `loans/index` to display how long the book is loaned
+   1. hint, do not perform any mathematical operations in the blade
+   1. you will need another array variable passed from the controller
 1. Experiment with Query builder and access various information from database tables.
+   1. include following code in the `loans/index` and fill "n/a" fields
+   ```php
+   <dl class="row">
+      <dt class="col-sm-3">Date of earliest loaned book</dt>
+      <dd class="col-sm-9">N/A</dd>
+
+      <dt class="col-sm-3">Date of latest returned book</dt>
+      <dd class="col-sm-9">N/A</dd>
+
+      <dt class="col-sm-3">Book with the highest loan count:</dt>
+      <dd class="col-sm-9">N/A</dd>
+
+      <dt class="col-sm-3">User with the highest loan count:</dt>
+      <dd class="col-sm-9">N/A</dd>
+
+      <dt class="col-sm-3">Number of books with longer than 30-day return period:</dt>
+      <dd class="col-sm-9">N/A</dd> 
+   </dl>
+   ```
+   1. Play with sorting options
+      1. Sort by `returned_at`
+      1. Sort by `last_name`, you must rewrite the query and do it the hard-way with *join*
+      
 
 # Exercise 4 (2021-11-22)
 ## Advanced debugging environment (exercise work)
