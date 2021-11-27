@@ -12,7 +12,6 @@
         </div>
         
         <div class="card-body">
-          
           <div class="row">
             @if($books->count() > 0)
             <table class="table table-responsive-sm">

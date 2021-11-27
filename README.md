@@ -85,7 +85,29 @@
       1. add `use Illuminate\Database\Eloquent\SoftDeletes;`
       1. *Can we delete any printout at any time?* Solve this as a homework
 
-
+## PDF generator (exercise work)
+1. Documentation
+   * [DOMPDF](https://github.com/dompdf/dompdf)
+   * [Laravel wrapper](https://github.com/barryvdh/laravel-dompdf) <- we use this one
+1. run `composer require barryvdh/laravel-dompdf` to include the library
+   1. add `Barryvdh\DomPDF\ServiceProvider::class,` to `providers` in `config/app.php`
+   1. add `'PDF' => Barryvdh\DomPDF\Facade::class,` to `aliases` in `config/app.php`
+1. Notes on PDF preparation:
+   * PDFs are generated via controllers.
+   * It is recommended not to mix pdf generator with resource controller.
+   * PDF generators should be accessed via GET route, not POST.
+1. Build your first PDF
+   1. Prepare a PDF report of all loans
+   1. run `php artisan make:controller PDF/BookReportController` which creates a plain controller in a new *PDF* folder in *Controllers*
+   1. Prepare a route in `web.php` as `Route::get('book/report', [App\Http\Controllers\PDF\BookReportController::class, 'simplePDF'])->name('book.report.simplePDF');` where the `simplePDF` is a public function in that controller
+   1. test the pdf generator with
+   ```php
+   public function simplePDF(){
+      $pdf = PDF::loadHTML('<h1>Test</h1>');
+      return $pdf->stream();
+   }
+   ```
+   
 ## Loan MVC (homework)
 1. Expand the *BookLoan* module with Create/Edit/Delete paths
    1. Hint: loan are made from printouts not from books

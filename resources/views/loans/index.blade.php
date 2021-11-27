@@ -15,22 +15,27 @@
           <dl class="row">
             <dt class="col-sm-3">Number of loans:</dt>
             <dd class="col-sm-9">{{$loans->count()}}</dd>
-
+            
             <dt class="col-sm-3">Date of earliest loaned book</dt>
             <dd class="col-sm-9">{{$bookParams['earliestLoan']->loaned_at}}</dd>
-
+            
             <dt class="col-sm-3">Date of latest returned book</dt>
             <dd class="col-sm-9">{{$bookParams['latestReturn']->returned_at}}</dd>
-
+            
             <dt class="col-sm-3">Book with the highest loan count:</dt>
             <dd class="col-sm-9">{{$bookParams['bookHighestCount']}}</dd>
-
+            
             <dt class="col-sm-3">User with the highest loan count:</dt>
             <dd class="col-sm-9">{{$bookParams['userHighestCount']}}</dd>
-
+            
             <dt class="col-sm-3">Number of books with longer than 30-day return period:</dt>
             <dd class="col-sm-9">{{$longerThan30}}</dd> 
           </dl>
+          <div class="row">
+            <div class="col-sm-12">
+              {!! Html::linkRoute('book.report.simplePDF', 'Download the Loan Report', [], array('class' => 'theme-color' )) !!}
+            </div>
+          </div>
           @if($loans->count() > 0)
           <table class="table">
             <thead>
