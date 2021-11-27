@@ -30,9 +30,11 @@ class HomeController extends Controller
         $books = Books::all()->count();
         $users = User::all()->count();
         $authors = Authors::all()->count();
+        $notReturnedBooks = $this->notAvailableBookList(true)->count();
         return view('home')
         ->with('users', $users)
         ->with('authors', $authors)
+        ->with('notReturnedBooks', $notReturnedBooks)
         ->with('books', $books);
     }
 }

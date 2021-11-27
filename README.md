@@ -85,8 +85,9 @@
       1. add `use Illuminate\Database\Eloquent\SoftDeletes;`
       1. *Can we delete any printout at any time?*
       
-## Loan MVC (exercise/repetition)
-1. Expand the *BookLoan* module with
+## Loan MVC (homework)
+1. Expand the *BookLoan* module with Create/Edit/Delete paths
+   1. Hint: loan are made from printouts not from books
 
 # Exercise 4 (2021-11-22)
 ## Advanced debugging environment (exercise work)
