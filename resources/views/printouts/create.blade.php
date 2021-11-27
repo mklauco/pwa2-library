@@ -7,16 +7,16 @@
       <div class="card">
         
         @if($create == true)
-        {!! Form::open(array('route' => 'authors.store')) !!}
+        {!! Form::open(array('route' => 'printouts.store')) !!}
         @else
-        {!! Form::model($authors, ['route' => ['authors.update', $authors->id], 'method' => 'PUT']) !!}
+        {!! Form::model($printouts, ['route' => ['printouts.update', $printouts->id], 'method' => 'PUT']) !!}
         @endif
         
         <div class="card-header">
           @if($create == true)
-          {{ __('authors.create') }}
+          {{ __('printouts.create') }}
           @else
-          {{ __('authors.update') }}
+          {{ __('printouts.update') }}
           @endif
         </div>
         
@@ -24,10 +24,10 @@
           
           <div class="row">
             <div class="col-sm-6">
-              @include('templates.form-text', ['space' => 'authors', 'tag' => 'first_name'])
+              @include('templates.form-select', ['space' => 'printouts', 'tag' => 'book_id', 'list' => $bookList])
             </div>
             <div class="col-sm-6">
-              @include('templates.form-text', ['space' => 'authors', 'tag' => 'last_name'])
+              @include('templates.form-date', ['space' => 'printouts', 'tag' => 'obtained_at'])
             </div>
           </div>
           

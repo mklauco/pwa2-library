@@ -8,8 +8,10 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 use App\Models\Authors;
+use App\Models\Books;
 
 use Auth;
+use Session;
 
 class Controller extends BaseController
 {
@@ -26,6 +28,19 @@ class Controller extends BaseController
             $list[$a->id] = $a->first_name.' '.$a->last_name;
         }
         return $list;
+    }
+
+    protected function bookList(){
+        $books = Books::all();
+        $list = [];
+        foreach($books as $a){
+            $list[$a->id] = $a->name;
+        }
+        return $list;
+    }
+    
+    protected function bookIds(){
+        return Books::all()->pluck('id')->toArray();
     }
 
     protected function trueFalse(){
