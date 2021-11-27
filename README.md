@@ -1,6 +1,6 @@
 # Exercise 5 (2021-11-29)
 
-## Loans MVC and Eloquent (exercise)
+## Loans MVC and Eloquent (exercise work)
 1. Prepare the view for all loans
    1. Display following fields in the table: *User name*, *Book Title*, *Loaned at*, *Returned at*, *Loan length*
    1. Use mutators to the `BookLoanItem` to achieve the previous task
@@ -75,7 +75,7 @@
       1. Sort by `returned_at`
       1. Sort by `last_name`, you must rewrite the query and do it the hard-way with *join*
 
-## Printouts MVC (exercise/repetition)
+## Printouts MVC (exercise/repetition and small homework)
 1. Expand the *Printouts* module with
    1. Create/Edit/Delete paths
       1. Add a blade template for dates (due to the `obtained_at` field, note that time is not really valid here)
@@ -83,11 +83,13 @@
    1. Soft deletes
       1. run `php artisan make:migration add_soft_delete_book_printouts --table="book_printouts`
       1. add `use Illuminate\Database\Eloquent\SoftDeletes;`
-      1. *Can we delete any printout at any time?*
-      
+      1. *Can we delete any printout at any time?* Solve this as a homework
+
+
 ## Loan MVC (homework)
 1. Expand the *BookLoan* module with Create/Edit/Delete paths
    1. Hint: loan are made from printouts not from books
+1. review the `HomeController` and *dashboard* menu from the main branch
 
 # Exercise 4 (2021-11-22)
 ## Advanced debugging environment (exercise work)
