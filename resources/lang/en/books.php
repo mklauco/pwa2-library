@@ -16,5 +16,11 @@ return [
   'saved'         => 'Entry saved',
   'delete'        => 'Delete',
   'deleted'       => 'Entry deleted',
+  'loans_length'  => 'Loan length',
+  'loaned_at'     => 'Loaned at',
+  'returned_at'   => 'Returned at',
+  'returned_at'   => 'Returned at',
+  'loans_list'    => 'List of Loans',
+  'loans_create'  => 'Loan a book',
   
 ];

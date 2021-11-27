@@ -6,9 +6,9 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header"><strong>{{ __('loans.list') }}</strong>
+        <div class="card-header"><strong>{{ __('books.loans_list') }}</strong>
           <div class="card-header-actions">
-            <a class="theme-color" href="{{route('loans.create')}}"><i class="cil-note-add"></i>&nbsp;{{__('loans.create')}}</a>
+            <a class="theme-color" href="{{route('loans.create')}}"><i class="cil-note-add"></i>&nbsp;{{__('books.loans_create')}}</a>
           </div>
         </div>
         <div class="card-body">
@@ -38,9 +38,9 @@
                 <th class="text-muted">{{__('general.id')}}</th>
                 <th>{{__('users.name')}}</th>
                 <th>{{__('books.name')}}</th>
-                <th>{{__('loans.loans_length')}}</th>
-                <th>{{__('loans.loaned_at')}}</th>
-                <th>{{__('loans.returned_at')}}</th>
+                <th>{{__('books.loans_length')}}</th>
+                <th>{{__('books.loaned_at')}}</th>
+                <th>{{__('books.returned_at')}}</th>
                 <th>{{__('general.created_at')}}</th>
                 <th>{{__('general.updated_at')}}</th>
                 <th colspan="2">{{__('general.actions')}}</th>
