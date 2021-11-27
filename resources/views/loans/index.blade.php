@@ -41,8 +41,8 @@
                 <th>{{__('books.loans_length')}}</th>
                 <th>{{__('books.loaned_at')}}</th>
                 <th>{{__('books.returned_at')}}</th>
-                <th>{{__('general.created_at')}}</th>
-                <th>{{__('general.updated_at')}}</th>
+                {{-- <th>{{__('general.created_at')}}</th> --}}
+                {{-- <th>{{__('general.updated_at')}}</th> --}}
                 <th colspan="2">{{__('general.actions')}}</th>
               </tr>
             </thead>
@@ -54,9 +54,15 @@
                 <td>{{$b->book->name}}</td>
                 <td>{{$loanLength[$b->id]}}</td>
                 <td>{{Carbon\Carbon::parse($b->loan->loaned_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
-                <td>{{Carbon\Carbon::parse($b->returned_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
-                <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
-                <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
+                <td>
+                  @if(is_null($b->returned_at))
+                  {{__('books.not_returned_yet')}}
+                  @else
+                  {{Carbon\Carbon::parse($b->returned_at)->tz('Europe/Berlin')->toDateTimeString()}}
+                  @endif
+                </td>
+                {{-- <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td> --}}
+                {{-- <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td> --}}
                 <td>{!! Html::linkRoute('loans.edit', __('general.edit'), ['loan' => $b->id], array('class' => 'theme-color' )) !!}</td>
                 <td>
                   {!! Form::open(array('route' => ['loans.destroy', $b->id], 'method'=>'DELETE')) !!}

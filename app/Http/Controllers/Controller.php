@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 use App\Models\Authors;
 use App\Models\Books;
+use App\Models\BookPrintout;
 
 use Auth;
 use Session;
@@ -32,6 +33,15 @@ class Controller extends BaseController
 
     protected function bookList(){
         $books = Books::all();
+        $list = [];
+        foreach($books as $a){
+            $list[$a->id] = $a->name;
+        }
+        return $list;
+    }
+
+    protected function availableBookList(){
+        $books = BookPrintout::join('book_loan_items', 'book_printouts.id', '=', 'book_loan_items.book_printout_id')->join('books', 'books.id', '=', 'book_printouts.book_id')->whereNotNull('book_loan_items.return_ed')->get();
         $list = [];
         foreach($books as $a){
             $list[$a->id] = $a->name;

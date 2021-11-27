@@ -22,7 +22,7 @@ class CreateBookLoanItemsTable extends Migration
             $table->unsignedBigInteger('book_loan_id');
             $table->foreign('book_loan_id')->references('id')->on('book_loans');
 
-            $table->timestamp('returned_at');
+            $table->timestamp('returned_at')->nullable()->default(null);
 
             $table->timestamps();
         });

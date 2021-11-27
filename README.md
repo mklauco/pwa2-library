@@ -36,6 +36,10 @@
    }
    ```
 1. Include a column in `loans/index` to display how long the book is loaned
+   1. modify the `book_loan_items migration` with
+   ```php
+   $table->timestamp('returned_at')->nullable()->default(null);
+   ```
    1. modify the `BookLoanItem factory`
    ```php
    $returned_at = $this->faker->dateTimeThisMonth();
@@ -81,6 +85,8 @@
       1. add `use Illuminate\Database\Eloquent\SoftDeletes;`
       1. *Can we delete any printout at any time?*
       
+## Loan MVC (exercise/repetition)
+1. Expand the *BookLoan* module with
 
 # Exercise 4 (2021-11-22)
 ## Advanced debugging environment (exercise work)
