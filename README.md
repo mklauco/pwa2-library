@@ -87,7 +87,7 @@
 
 ## PDF generator (exercise work)
 1. Documentation
-   * [DOMPDF](https://github.com/dompdf/dompdf)
+   * [DOMPDF](https://github.com/dompdf/dompdf) with [DEMO/Examples](http://eclecticgeek.com/dompdf/debug.php)
    * [Laravel wrapper](https://github.com/barryvdh/laravel-dompdf) <- we use this one
 1. run `composer require barryvdh/laravel-dompdf` to include the library
    1. add `Barryvdh\DomPDF\ServiceProvider::class,` to `providers` in `config/app.php`
@@ -98,15 +98,24 @@
    * PDF generators should be accessed via GET route, not POST.
 1. Build your first PDF
    1. Prepare a PDF report of all loans
-   1. run `php artisan make:controller PDF/BookReportController` which creates a plain controller in a new *PDF* folder in *Controllers*
-   1. Prepare a route in `web.php` as `Route::get('book/report', [App\Http\Controllers\PDF\BookReportController::class, 'simplePDF'])->name('book.report.simplePDF');` where the `simplePDF` is a public function in that controller
-   1. test the pdf generator with
+   2. run `php artisan make:controller PDF/BookReportController` which creates a plain controller in a new *PDF* folder in *Controllers*
+   3. Prepare a route in `web.php` as `Route::get('book/report', [App\Http\Controllers\PDF\BookReportController::class, 'simplePDF'])->name('book.report.simplePDF');` where the `simplePDF` is a public function in that controller
+   4. test the pdf generator with
    ```php
    public function simplePDF(){
       $pdf = PDF::loadHTML('<h1>Test</h1>');
       return $pdf->stream();
    }
    ```
+   5. The PDF generator work in a same was as the blade templates, hence
+   ```php
+    public function simplePDF(){
+        $pdf = PDF::loadView('pdf.loanReport', $data);
+        return $pdf->downloadn('loan_report.pdf');
+    }
+   ```
+   which takes the view in `views/pdf/loanReport.blade.php` and generates a PDF document for download with the name `loan_report.pdf`.
+   6. Investigate the files [BookReportController](https://github.com/mklauco/pwa2-library/blob/main/app/Http/Controllers/BookReportController.php) and []() and incorporate them into your installation
    
 ## Loan MVC (homework)
 1. Expand the *BookLoan* module with Create/Edit/Delete paths
