@@ -115,7 +115,8 @@
     }
    ```
    which takes the view in `views/pdf/loanReport.blade.php` and generates a PDF document for download with the name `loan_report.pdf`.
-   6. Investigate the files [BookReportController](https://github.com/mklauco/pwa2-library/blob/main/app/Http/Controllers/BookReportController.php) and []() and incorporate them into your installation
+   6. Investigate the files [BookReportController.php](https://github.com/mklauco/pwa2-library/blob/main/app/Http/Controllers/BookReportController.php) and [loanReport.blade.php](https://github.com/mklauco/pwa2-library/tree/main/resources/views/pdf/loanReport.blade.php) and incorporate them into your installation.
+   7. Change the report to display only NOT returned books.
    
 ## Loan MVC (homework)
 1. Expand the *BookLoan* module with Create/Edit/Delete paths
