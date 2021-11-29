@@ -91,7 +91,7 @@
    * [Laravel wrapper](https://github.com/barryvdh/laravel-dompdf) <- we use this one
 1. run `composer require barryvdh/laravel-dompdf` to include the library
    1. add `Barryvdh\DomPDF\ServiceProvider::class,` to `providers` in `config/app.php`
-   1. add `'PDF' => Barryvdh\DomPDF\Facade::class,` to `aliases` in `config/app.php`
+   2. add `'PDF' => Barryvdh\DomPDF\Facade::class,` to `aliases` in `config/app.php`
 1. Notes on PDF preparation:
    * PDFs are generated via controllers.
    * It is recommended not to mix pdf generator with resource controller.
@@ -107,14 +107,13 @@
       return $pdf->stream();
    }
    ```
-   5. The PDF generator work in a same was as the blade templates, hence
+   5. The PDF generator work in a same was as the blade templates. Following code takes the view in `views/pdf/loanReport.blade.php` and generates a PDF document for download with the name `loan_report.pdf`.
    ```php
-    public function simplePDF(){
-        $pdf = PDF::loadView('pdf.loanReport', $data);
-        return $pdf->downloadn('loan_report.pdf');
-    }
+   public function simplePDF(){
+      $pdf = PDF::loadView('pdf.loanReport', $data);
+      return $pdf->downloadn('loan_report.pdf');
+   }
    ```
-   which takes the view in `views/pdf/loanReport.blade.php` and generates a PDF document for download with the name `loan_report.pdf`.
    6. Investigate the files [BookReportController.php](https://github.com/mklauco/pwa2-library/blob/main/app/Http/Controllers/PDF/BookReportController.php) and [loanReport.blade.php](https://github.com/mklauco/pwa2-library/tree/main/resources/views/pdf/loanReport.blade.php) and incorporate them into your installation.
    7. Change the report to display only NOT returned books.
    
