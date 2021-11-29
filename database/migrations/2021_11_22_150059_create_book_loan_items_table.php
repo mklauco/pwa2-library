@@ -16,7 +16,7 @@ class CreateBookLoanItemsTable extends Migration
         Schema::create('book_loan_items', function (Blueprint $table) {
             $table->id();
 
-            $table->timestamp('returned_at');
+            $table->timestamp('returned_at')->nullable()->default(null);
 
             $table->unsignedBigInteger('loan_id');
             $table->foreign('loan_id')->references('id')->on('book_loans');

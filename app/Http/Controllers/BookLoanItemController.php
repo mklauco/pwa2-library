@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BookLoanItem;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+
 class BookLoanItemController extends Controller
 {
     /**
@@ -14,7 +16,16 @@ class BookLoanItemController extends Controller
      */
     public function index()
     {
-        //
+        $loans = BookLoanItem::with('user', 'book', 'loan')->get();
+
+        $loanLength = [];
+        foreach ($loans as $b){
+            $loaned_at   = Carbon::parse($b->loan->loaned_at);
+            $returned_at = Carbon::parse($b->returned_at);
+            $loanLength[$b->id] = $returned_at->diff($loaned_at)->days;
+        }
+
+        return view('loans.index')->with('loans', $loans)->with('loanLength', $loanLength);
     }
 
     /**

@@ -26,6 +26,13 @@
   </li>
 
   <li class="c-sidebar-nav-item">
+    <a class="c-sidebar-nav-link {{ Request::is('loans*') ? 'c-active' : '' }}" href="{{route('loans.index')}}">
+      <i class="c-sidebar-nav-icon cil-folder-open"></i>
+      Loans
+    </a>
+  </li>
+
+  <li class="c-sidebar-nav-item">
 
     <a class="c-sidebar-nav-link {{ Request::is('users*') ? 'c-active' : '' }}" href="{{route('users.index')}}">
 
