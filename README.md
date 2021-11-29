@@ -3,7 +3,7 @@
 ## Loans MVC and Eloquent (exercise work)
 1. Prepare the view for all loans
    1. Display following fields in the table: *User name*, *Book Title*, *Loaned at*, *Returned at*, *Loan length*
-   1. Use mutators to the `BookLoanItem` to achieve the previous task
+   1. Use mutators to the model `BookLoanItem` to achieve the previous task
    ```php
    public function printout(){
        return $this->hasOne(BookPrintout::class, 'id', 'book_printout_id');
