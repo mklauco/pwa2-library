@@ -17,7 +17,7 @@
             <thead>
               <tr>
                 <th class="text-muted">{{__('general.id')}}</th>
-                <th>{{__('books.name')}}</th>
+                <th>{{__('printouts.book_title')}}</th>
                 <th>{{__('printouts.obtained_at')}}</th>
                 <th>{{__('general.created_at')}}</th>
                 <th>{{__('general.updated_at')}}</th>
@@ -29,10 +29,10 @@
               <tr @if(!is_null($b->deleted_at)) class="text-black-50" @endif>
                 <td class="text-muted">{{$b->id}}</td>
                 <td>{{$b->book->name}}</td>
-                <td>{{$b->obtained_at}}</td>
+                <td>{{Carbon\Carbon::parse($b->obtained_at)->tz('Europe/Berlin')->toDateString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
                 <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
-                <td>{!! Html::linkRoute('printouts.edit', __('general.edit'), ['printout' => $b->id], array('class' => 'theme-color' )) !!}</td>
+                <td>{!! Html::linkRoute('printouts.edit', __('general.edit'), ['printout' => $b], array('class' => 'theme-color' )) !!}</td>
                 <td>
                   {!! Form::open(array('route' => ['printouts.destroy', $b->id], 'method'=>'DELETE')) !!}
                   {!! Form::submit(__('general.delete'), array('class' => 'btn btn-danger btn-ghost-danger my-0 py-0', 'style' => 'line-height: 20px;', 'onclick' => 'return confirm("You are about to delete the book.")' ))!!}
@@ -43,7 +43,7 @@
             </tbody>
           </table> 
           @else
-          Start with inserting an author into the databse.
+          Start with inserting a printout into the database.
           @endif
           
           

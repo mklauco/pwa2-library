@@ -8,8 +8,11 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 use App\Models\Authors;
+use App\Models\Books;
+use App\Models\BookPrintout;
 
 use Auth;
+use Session;
 
 class Controller extends BaseController
 {
@@ -26,6 +29,42 @@ class Controller extends BaseController
             $list[$a->id] = $a->first_name.' '.$a->last_name;
         }
         return $list;
+    }
+
+    protected function bookList(){
+        $books = Books::all();
+        $list = [];
+        foreach($books as $a){
+            $list[$a->id] = $a->name;
+        }
+        return $list;
+    }
+
+    protected function availableBookList(){
+        $books = BookPrintout::join('book_loan_items', 'book_printouts.id', '=', 'book_loan_items.book_printout_id')->join('books', 'books.id', '=', 'book_printouts.book_id')->whereNotNull('book_loan_items.returned_at')->get();
+        $list = [];
+        foreach($books as $a){
+            $list[$a->id] = $a->name;
+        }
+        return $list;
+    }
+    
+    protected function notAvailableBookList($collection = false){
+        $books = BookPrintout::join('book_loan_items', 'book_printouts.id', '=', 'book_loan_items.book_printout_id')->join('books', 'books.id', '=', 'book_printouts.book_id')->whereNull('book_loan_items.returned_at')->get();
+        if($collection == true){
+            return $books;
+        } else {
+            $list = [];
+            foreach($books as $a){
+                $list[$a->id] = $a->name;
+            }
+            return $list;
+        }
+
+    }
+
+    protected function bookIds(){
+        return Books::all()->pluck('id')->toArray();
     }
 
     protected function trueFalse(){

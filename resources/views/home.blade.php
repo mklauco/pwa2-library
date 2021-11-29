@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-12">
       
       
       <div class="row">
@@ -16,11 +16,11 @@
         </div>
 
         <div class="col-sm-6 col-lg-3">
-          @include('templates.card-block', ['counter' => $authors, 'title' => 'Number of authors', 'gradient' => 'danger'])
+          @include('templates.card-block', ['counter' => $authors, 'title' => 'Number of authors', 'gradient' => 'success'])
         </div>
 
         <div class="col-sm-6 col-lg-3">
-          @include('templates.card-block', ['counter' => 0, 'title' => 'n/a', 'gradient' => 'success'])
+          @include('templates.card-block', ['counter' => $notReturnedBooks, 'title' => 'Not returned books', 'gradient' => 'danger'])
         </div>
 
       </div>
