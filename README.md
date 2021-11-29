@@ -1,3 +1,118 @@
+# Exercise 5 (2021-11-29)
+
+## Loans MVC and Eloquent (exercise work)
+1. Prepare the view for all loans
+   1. Display following fields in the table: *User name*, *Book Title*, *Loaned at*, *Returned at*, *Loan length*
+   1. Use mutators to the `BookLoanItem` to achieve the previous task
+   ```php
+   public function printout(){
+       return $this->hasOne(BookPrintout::class, 'id', 'book_printout_id');
+   }
+
+   public function loan(){
+       return $this->hasOne(BookLoan::class, 'id', 'book_loan_id');
+    }
+
+   public function book(){
+       return $this->hasOneThrough(
+           Books::class,
+           BookPrintout::class,
+           'id',
+           'id',
+           'book_printout_id',
+           'id'
+       );
+   }
+
+   public function user(){
+       return $this->hasOneThrough(
+           User::class,
+           BookLoan::class,
+           'id',
+           'id',
+           'book_loan_id',
+           'user_id'
+       );
+   }
+   ```
+1. Include a column in `loans/index` to display how long the book is loaned
+   1. modify the `book_loan_items migration` with
+   ```php
+   $table->timestamp('returned_at')->nullable()->default(null);
+   ```
+   1. modify the `BookLoanItem factory`
+   ```php
+   $returned_at = $this->faker->dateTimeThisMonth();
+   return [
+      'book_printout_id' => rand(1, 20), // watch for BookPrintoutSeeder
+      'book_loan_id' => rand(1, 15), // watch for BookLoanSeeder
+      'returned_at' => $this->faker->randomElement([null, $returned_at]),
+   ];
+   ```
+   1. hint, do not perform any mathematical operations in the blade
+   1. you will need another array variable passed from the controller
+1. Experiment with Query builder and access various information from database tables.
+   1. include following code in the `loans/index` and fill "n/a" fields
+   ```php
+   <dl class="row">
+      <dt class="col-sm-3">Date of earliest loaned book</dt>
+      <dd class="col-sm-9">N/A</dd>
+
+      <dt class="col-sm-3">Date of latest returned book</dt>
+      <dd class="col-sm-9">N/A</dd>
+
+      <dt class="col-sm-3">Book with the highest loan count:</dt>
+      <dd class="col-sm-9">N/A</dd>
+
+      <dt class="col-sm-3">User with the highest loan count:</dt>
+      <dd class="col-sm-9">N/A</dd>
+
+      <dt class="col-sm-3">Number of books with longer than 30-day return period:</dt>
+      <dd class="col-sm-9">N/A</dd> 
+   </dl>
+   ```
+   1. Play with sorting options
+      1. Sort by `returned_at`
+      1. Sort by `last_name`, you must rewrite the query and do it the hard-way with *join*
+
+## Printouts MVC (exercise/repetition and small homework)
+1. Expand the *Printouts* module with
+   1. Create/Edit/Delete paths
+      1. Add a blade template for dates (due to the `obtained_at` field, note that time is not really valid here)
+      1. expand the validator array to check if the book_id actually is in the database
+   1. Soft deletes
+      1. run `php artisan make:migration add_soft_delete_book_printouts --table="book_printouts`
+      1. add `use Illuminate\Database\Eloquent\SoftDeletes;`
+      1. *Can we delete any printout at any time?* Solve this as a homework
+
+## PDF generator (exercise work)
+1. Documentation
+   * [DOMPDF](https://github.com/dompdf/dompdf)
+   * [Laravel wrapper](https://github.com/barryvdh/laravel-dompdf) <- we use this one
+1. run `composer require barryvdh/laravel-dompdf` to include the library
+   1. add `Barryvdh\DomPDF\ServiceProvider::class,` to `providers` in `config/app.php`
+   1. add `'PDF' => Barryvdh\DomPDF\Facade::class,` to `aliases` in `config/app.php`
+1. Notes on PDF preparation:
+   * PDFs are generated via controllers.
+   * It is recommended not to mix pdf generator with resource controller.
+   * PDF generators should be accessed via GET route, not POST.
+1. Build your first PDF
+   1. Prepare a PDF report of all loans
+   1. run `php artisan make:controller PDF/BookReportController` which creates a plain controller in a new *PDF* folder in *Controllers*
+   1. Prepare a route in `web.php` as `Route::get('book/report', [App\Http\Controllers\PDF\BookReportController::class, 'simplePDF'])->name('book.report.simplePDF');` where the `simplePDF` is a public function in that controller
+   1. test the pdf generator with
+   ```php
+   public function simplePDF(){
+      $pdf = PDF::loadHTML('<h1>Test</h1>');
+      return $pdf->stream();
+   }
+   ```
+   
+## Loan MVC (homework)
+1. Expand the *BookLoan* module with Create/Edit/Delete paths
+   1. Hint: loan are made from printouts not from books
+1. review the `HomeController` and *dashboard* menu from the main branch
+
 # Exercise 4 (2021-11-22)
 ## Advanced debugging environment (exercise work)
 1. install [Debugbar](https://github.com/barryvdh/laravel-debugbar)
