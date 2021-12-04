@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
 
     Route::resource('books', App\Http\Controllers\BooksController::class);
     Route::resource('users', App\Http\Controllers\UsersController::class);
@@ -29,5 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('loans', App\Http\Controllers\BookLoanItemController::class);
 
     Route::get('book/report', [App\Http\Controllers\PDF\BookReportController::class, 'simplePDF'])->name('book.report.simplePDF');
+
+    Route::get('user/export/', [App\Http\Controllers\UsersController::class, 'export'])->name('users.export.excel');
 
 });

@@ -1,3 +1,10 @@
+# Exercise 6 (2021-12-06)
+1. Junior code review
+1. Installation of Excel exports in Laravel
+   1. visit (Laravel Excel)[https://laravel-excel.com/]
+   1. follow installation guide in (Laravel Excel installation)[https://docs.laravel-excel.com/3.1/getting-started/installation.html]
+   1. Follow the "5-minute quick start" from the documentation (Link)[https://docs.laravel-excel.com/3.1/exports/]
+
 # Exercise 5 (2021-11-29)
 ## Homework from Exercise 5
 ### Printouts MVC (exercise/repetition and small homework)
@@ -35,7 +42,7 @@
            'id',
            'id',
            'book_printout_id',
-           'id'
+           'book_id'
        );
    }
 
