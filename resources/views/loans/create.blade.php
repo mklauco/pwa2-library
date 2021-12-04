@@ -7,16 +7,16 @@
       <div class="card">
         
         @if($create == true)
-        {!! Form::open(array('route' => 'authors.store')) !!}
+        {!! Form::open(array('route' => 'loans.store')) !!}
         @else
-        {!! Form::model($authors, ['route' => ['authors.update', $authors->id], 'method' => 'PUT']) !!}
+        {!! Form::model($loans, ['route' => ['loans.update', $loans->id], 'method' => 'PUT']) !!}
         @endif
         
         <div class="card-header">
           @if($create == true)
-          {{ __('authors.create') }}
+          {{ __('loans.create') }}
           @else
-          {{ __('authors.update') }}
+          {{ __('loans.update') }}
           @endif
         </div>
         
@@ -24,10 +24,20 @@
           
           <div class="row">
             <div class="col-sm-6">
-              @include('templates.form-text', ['space' => 'authors', 'tag' => 'first_name'])
+              @if($create == true)
+              @include('templates.form-select', ['space' => 'loans', 'tag' => 'book_printout_id', 'list' => $availableBookList])
+              @else
+              Book to be returned: <strong>{{$loans->book->name}}</strong>
+              @endif
             </div>
+          </div>
+          <div class="row">
             <div class="col-sm-6">
-              @include('templates.form-text', ['space' => 'authors', 'tag' => 'last_name'])
+              @if($create == true)
+              @include('templates.form-date', ['space' => 'loans', 'tag' => 'loaned_at'])
+              @else
+              @include('templates.form-date', ['space' => 'loans', 'tag' => 'returned_at'])
+              @endif
             </div>
           </div>
           

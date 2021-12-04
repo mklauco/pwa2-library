@@ -15,14 +15,16 @@ class BookPrintoutController extends Controller
   public function index()
   {
 
-    $printouts = BookPrintout::with('book')->orderBy('book_id', 'asc')->get();
+    $printouts = BookPrintout::with('book')->orderBy('book_id', 'desc')->get();
     return view('printouts.index')->with('printouts', $printouts);
   }
   
   
   public function create()
   {
-    return view('printouts.create')->with('create', true)->with('bookList', $this->bookList());
+    $bookList = $this->bookList();
+    $bookList[256] = 'INVALID BOOK';
+    return view('printouts.create')->with('create', true)->with('bookList', $bookList);
   }
   
   

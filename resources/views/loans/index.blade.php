@@ -32,56 +32,69 @@
             <dd class="col-sm-9">{{$longerThan30}}</dd> 
           </dl>
           <div class="row">
-            <div class="col-sm-12">
-              {!! Html::linkRoute('book.report.simplePDF', 'Download the Loan Report', [], array('class' => 'theme-color' )) !!}
+            <div class="col-sm-3">
+              <a href="{{route('book.report.simplePDF')}}">
+                <i class="cil-cloud-download"></i>
+                {{__('loans.download_pdf')}}
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a href="{{route('book.report.simplePDF')}}">
+                <i class="cil-cloud-download"></i>
+                {{__('loans.download_excel')}}
+              </a>
             </div>
           </div>
-          @if($loans->count() > 0)
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="text-muted">{{__('general.id')}}</th>
-                <th>{{__('users.name')}}</th>
-                <th>{{__('books.name')}}</th>
-                <th>{{__('books.loans_length')}}</th>
-                <th>{{__('books.loaned_at')}}</th>
-                <th>{{__('books.returned_at')}}</th>
-                {{-- <th>{{__('general.created_at')}}</th> --}}
-                {{-- <th>{{__('general.updated_at')}}</th> --}}
-                <th colspan="2">{{__('general.actions')}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($loans as $b)
-              <tr @if(!is_null($b->deleted_at)) class="text-black-50" @endif>
-                <td class="text-muted">{{$b->id}}</td>
-                <td>{{$b->user->first_name}}&nbsp;{{$b->user->last_name}}</td>
-                <td>{{$b->book->name}}</td>
-                <td>{{$loanLength[$b->id]}}</td>
-                <td>{{Carbon\Carbon::parse($b->loan->loaned_at)->tz('Europe/Berlin')->toDateTimeString()}}</td>
-                <td>
-                  @if(is_null($b->returned_at))
-                  {{__('books.not_returned_yet')}}
-                  @else
-                  {{Carbon\Carbon::parse($b->returned_at)->tz('Europe/Berlin')->toDateTimeString()}}
-                  @endif
-                </td>
-                {{-- <td>{{Carbon\Carbon::parse($b->created_at)->tz('Europe/Berlin')->toDateTimeString()}}</td> --}}
-                {{-- <td>{{Carbon\Carbon::parse($b->updated_at)->tz('Europe/Berlin')->toDateTimeString()}}</td> --}}
-                <td>{!! Html::linkRoute('loans.edit', __('general.edit'), ['loan' => $b->id], array('class' => 'theme-color' )) !!}</td>
-                <td>
-                  {!! Form::open(array('route' => ['loans.destroy', $b->id], 'method'=>'DELETE')) !!}
-                  {!! Form::submit(__('general.delete'), array('class' => 'btn btn-danger btn-ghost-danger my-0 py-0', 'style' => 'line-height: 20px;', 'onclick' => 'return confirm("You are about to delete the book.")' ))!!}
-                  {!! Form::close() !!}
-                </td>
-              </tr>                  
-              @endforeach
-            </tbody>
-          </table> 
-          @else
-          Start with inserting an author into the databse.
-          @endif
-          
+
+          <div class="row">
+            <div class="col-sm-12">
+              @if($loans->count() > 0)
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="text-muted">{{__('general.id')}}</th>
+                    <th>{{__('users.name')}}</th>
+                    <th>{{__('books.name')}}</th>
+                    <th>{{__('books.loans_length')}}</th>
+                    <th>{{__('books.loaned_at')}}</th>
+                    <th>{{__('books.returned_at')}}</th>
+                    {{-- <th>{{__('general.created_at')}}</th> --}}
+                    {{-- <th>{{__('general.updated_at')}}</th> --}}
+                    <th colspan="2">{{__('general.actions')}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($loans as $b)
+                  <tr @if(!is_null($b->deleted_at)) class="text-black-50" @endif>
+                    <td class="text-muted">{{$b->id}}</td>
+                    <td>{{$b->user->first_name}}&nbsp;{{$b->user->last_name}}</td>
+                    <td>{{$b->book->name}}</td>
+                    <td>{{$loanLength[$b->id]}}</td>
+                    <td>{{Carbon\Carbon::parse($b->loan->loaned_at)->tz('Europe/Berlin')->toDateString()}}</td>
+                    <td>
+                      @if(is_null($b->returned_at))
+                      {{__('books.not_returned_yet')}}
+                      @else
+                      {{Carbon\Carbon::parse($b->returned_at)->tz('Europe/Berlin')->toDateString()}}
+                      @endif
+                    </td>
+                    <td>{!! Html::linkRoute('loans.edit', __('general.edit'), ['loan' => $b->id], array('class' => 'theme-color' )) !!}</td>
+                    <td>
+                      @if(!is_null($b->returned_at))
+                      {!! Form::open(array('route' => ['loans.destroy', $b->id], 'method'=>'DELETE')) !!}
+                      {!! Form::submit(__('general.delete'), array('class' => 'btn btn-danger btn-ghost-danger my-0 py-0', 'style' => 'line-height: 20px;', 'onclick' => 'return confirm("You are about to delete the book.")' ))!!}
+                      {!! Form::close() !!}
+                      @endif
+                    </td>
+                  </tr>                  
+                  @endforeach
+                </tbody>
+              </table> 
+              @else
+              Start with inserting an author into the databse.
+              @endif
+            </div>
+          </div>
           
         </div>
       </div>
