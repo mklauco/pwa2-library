@@ -10,6 +10,9 @@ use Carbon\Carbon;
 
 use PDF;
 
+use App\Exports\BooksExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class BookReportController extends Controller
 {
     //
@@ -33,4 +36,9 @@ class BookReportController extends Controller
         $pdf = PDF::loadView('pdf.loanReport', $data);
         return $pdf->download('loan_report.pdf');
     }
+
+    public function export(){
+      return Excel::download(new BooksExport, 'books.xlsx');
+    }
+
 }

@@ -3,7 +3,8 @@
 1. Installation of Excel exports in Laravel
    1. visit (Laravel Excel)[https://laravel-excel.com/]
    1. follow installation guide in (Laravel Excel installation)[https://docs.laravel-excel.com/3.1/getting-started/installation.html]
-   1. Follow the "5-minute quick start" from the documentation (Link)[https://docs.laravel-excel.com/3.1/exports/]
+   1. Follow the "5-minute quick start" from the documentation (Simple Excel Export)[https://docs.laravel-excel.com/3.1/exports/]
+   1. modify the procedure and export all books as in `books/index.blade.php` to excel via blade directives, documentation here (From View)[https://docs.laravel-excel.com/3.1/exports/from-view.html]. hint: you must prepare a new blade with a `<table>...</table>` without any styling
 
 # Exercise 5 (2021-11-29)
 ## Homework from Exercise 5

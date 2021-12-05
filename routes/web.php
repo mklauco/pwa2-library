@@ -33,4 +33,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('user/export/', [App\Http\Controllers\UsersController::class, 'export'])->name('users.export.excel');
 
+    Route::get('book/export/', [App\Http\Controllers\PDF\BookReportController::class, 'export'])->name('books.export.excel');
 });
