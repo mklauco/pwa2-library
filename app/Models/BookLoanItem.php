@@ -12,7 +12,7 @@ class BookLoanItem extends Model
     public function printout(){
        return $this->hasOne(BookPrintout::class, 'id', 'book_printout_id');
     }
-
+    
     public function loan(){
         return $this->hasOne(BookLoan::class, 'id', 'book_loan_id');
      }
@@ -24,7 +24,7 @@ class BookLoanItem extends Model
             'id',
             'id',
             'book_printout_id',
-            'id'
+            'book_id'
         );
     }
 

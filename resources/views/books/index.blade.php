@@ -7,6 +7,9 @@
       <div class="card">
         <div class="card-header"><strong>{{ __('books.list') }}</strong>
           <div class="card-header-actions">
+            <a class="theme-color" href="{{route('books.export.excel')}}">
+              <i class="cil-note-add"></i>&nbsp;{{__('books.download_excel')}}
+            </a>
             <a class="theme-color" href="{{route('books.create')}}"><i class="cil-note-add"></i>&nbsp;{{__('books.create')}}</a>
           </div>
         </div>

@@ -10,6 +10,9 @@ use Session;
 use App\Models\User;
 use Auth;
 
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class UsersController extends Controller
 {
 
@@ -102,5 +105,9 @@ class UsersController extends Controller
   public function destroy($id)
   {
     //
+  }
+
+  public function export(){
+    return Excel::download(new UsersExport, 'users.xlsx');
   }
 }

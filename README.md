@@ -1,9 +1,67 @@
+# Exercise 6 (2021-12-06)
+1. Junior code review
+
+## Excel exports (exercise)
+
+1. visit (Laravel Excel)[https://laravel-excel.com/]
+1. follow installation guide in (Laravel Excel installation)[https://docs.laravel-excel.com/3.1/getting-started/installation.html]
+1. Follow the "5-minute quick start" from the documentation (Simple Excel Export)[https://docs.laravel-excel.com/3.1/exports/]
+1. modify the procedure and export all books as in `books/index.blade.php` to excel via blade directives, documentation here (From View)[https://docs.laravel-excel.com/3.1/exports/from-view.html]. hint: you must prepare a new blade with a `<table>...</table>` without any styling
+
+## Sending emails (exercise)
+1. Link to email documentation (Emails in Laravel)[https://laravel.com/docs/8.x/mail]
+1. Basic configuration: 
+   1. create an *(Mailtrap.io)[https://mailtrap.io/]* account
+   1. setup the `.env` file with email credentials (e.g. with (Mailtrap.io)[https://mailtrap.io/])
+   ```
+   MAIL_MAILER=smtp
+   MAIL_HOST=smtp.mailtrap.io
+   MAIL_PORT=2525
+   MAIL_USERNAME=********
+   MAIL_PASSWORD=********
+   MAIL_ENCRYPTION=tls
+   ```
+   2. note, that Mailtrap.io service is just for development environment, for production system use other email transaction service, *DO NOT USE* your own SMTP servers or email services that come by/from webhosting, you will most probably have deliverability issues
+1. Task: Generate email notification when a new book is added to the database
+   1. create a mailable class `php artisan make:mail BookAdded`
+   2. add to the mailable class the following
+   ```php
+      return $this->from('development@pwa2library.io', 'Book Added')
+      ->view('emails.bookAdded');
+   ```
+   3. Create a simple blade file with the following
+   ```html
+   <html>
+      <body>
+         <h1>Book added</h1>
+      </body>
+   </html>
+   ```
+   4. Add `Mail::to($emailAddress)->send(new BookAdded);` to the *store* method after `Books::create()` and include
+      * `use Illuminate\Support\Facades\Mail;`
+      * `use App\Mail\BookAdded;`
+
 # Exercise 5 (2021-11-29)
+## Homework from Exercise 5
+### Printouts MVC (exercise/repetition and small homework)
+1. Expand the *Printouts* module with
+   1. Create/Edit/Delete paths
+      1. Add a blade template for dates (due to the `obtained_at` field, note that time is not really valid here)
+      1. expand the validator array to check if the book_id actually is in the database
+   1. Soft deletes
+      1. run `php artisan make:migration add_soft_delete_book_printouts --table="book_printouts`
+      1. add `use Illuminate\Database\Eloquent\SoftDeletes;`
+      1. *Can we delete any printout at any time?* Solve this as a homework
+
+### Loan MVC (homework)
+1. Expand the *BookLoan* module with Create/Edit/Delete paths
+   1. Hint: loan are made from printouts not from books
+1. review the `HomeController` and *dashboard* menu from the main branch
 
 ## Loans MVC and Eloquent (exercise work)
 1. Prepare the view for all loans
    1. Display following fields in the table: *User name*, *Book Title*, *Loaned at*, *Returned at*, *Loan length*
-   1. Use mutators to the `BookLoanItem` to achieve the previous task
+   1. Use mutators to the model `BookLoanItem` to achieve the previous task
    ```php
    public function printout(){
        return $this->hasOne(BookPrintout::class, 'id', 'book_printout_id');
@@ -20,7 +78,7 @@
            'id',
            'id',
            'book_printout_id',
-           'id'
+           'book_id'
        );
    }
 
@@ -91,7 +149,7 @@
    * [Laravel wrapper](https://github.com/barryvdh/laravel-dompdf) <- we use this one
 1. run `composer require barryvdh/laravel-dompdf` to include the library
    1. add `Barryvdh\DomPDF\ServiceProvider::class,` to `providers` in `config/app.php`
-   1. add `'PDF' => Barryvdh\DomPDF\Facade::class,` to `aliases` in `config/app.php`
+   2. add `'PDF' => Barryvdh\DomPDF\Facade::class,` to `aliases` in `config/app.php`
 1. Notes on PDF preparation:
    * PDFs are generated via controllers.
    * It is recommended not to mix pdf generator with resource controller.
@@ -107,15 +165,14 @@
       return $pdf->stream();
    }
    ```
-   5. The PDF generator work in a same was as the blade templates, hence
+   5. The PDF generator work in a same was as the blade templates. Following code takes the view in `views/pdf/loanReport.blade.php` and generates a PDF document for download with the name `loan_report.pdf`.
    ```php
-    public function simplePDF(){
-        $pdf = PDF::loadView('pdf.loanReport', $data);
-        return $pdf->downloadn('loan_report.pdf');
-    }
+   public function simplePDF(){
+      $pdf = PDF::loadView('pdf.loanReport', $data);
+      return $pdf->downloadn('loan_report.pdf');
+   }
    ```
-   which takes the view in `views/pdf/loanReport.blade.php` and generates a PDF document for download with the name `loan_report.pdf`.
-   6. Investigate the files [BookReportController.php](https://github.com/mklauco/pwa2-library/blob/main/app/Http/Controllers/BookReportController.php) and [loanReport.blade.php](https://github.com/mklauco/pwa2-library/tree/main/resources/views/pdf/loanReport.blade.php) and incorporate them into your installation.
+   6. Investigate the files [BookReportController.php](https://github.com/mklauco/pwa2-library/blob/main/app/Http/Controllers/PDF/BookReportController.php) and [loanReport.blade.php](https://github.com/mklauco/pwa2-library/tree/main/resources/views/pdf/loanReport.blade.php) and incorporate them into your installation.
    7. Change the report to display only NOT returned books.
    
 ## Loan MVC (homework)

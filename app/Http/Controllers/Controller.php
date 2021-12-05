@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Models\Authors;
 use App\Models\Books;
 use App\Models\BookPrintout;
+use App\Models\BookLoanItem;
 
 use Auth;
 use Session;
@@ -41,10 +42,25 @@ class Controller extends BaseController
     }
 
     protected function availableBookList(){
-        $books = BookPrintout::join('book_loan_items', 'book_printouts.id', '=', 'book_loan_items.book_printout_id')->join('books', 'books.id', '=', 'book_printouts.book_id')->whereNotNull('book_loan_items.returned_at')->get();
+        // $b = BookLoanItem::rightjoin('book_printouts', 'book_printouts.id', '=', 'book_loan_items.book_printout_id')->whereNotNull('book_loan_items.returned_at')->pluck('book_printouts.id')->toArray();
+
+        $b = BookLoanItem::whereNotNull('book_loan_items.returned_at')->pluck('book_loan_items.book_printout_id')->toArray();
+
+        $books = BookPrintout::join('books', 'books.id', '=', 'book_printouts.book_id')->whereIn('book_printouts.id', $b)->orderBy('book_printouts.id', 'asc')->select([
+            'books.name AS name',
+            'book_printouts.id AS pid',
+            'books.id AS bid'
+        ])->get();
+
         $list = [];
         foreach($books as $a){
-            $list[$a->id] = $a->name;
+            if (Auth::user()->debug == true){
+                $adminInfo = ' (pID: '.$a->pid.', bID:'.$a->bid.')';
+            } else {
+                $adminInfo = '';
+            }
+            
+            $list[$a->pid] = $a->name.$adminInfo;
         }
         return $list;
     }
