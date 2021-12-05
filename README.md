@@ -58,7 +58,7 @@
       }
       ```
       * and then use `return ...view(...)->with('data', $this->data)`.
-   1. create main email template file `emails/layout.blade.php` which then extends to the particular email blade file check blade files (emails/layout)[] and (emails/bookAdded)[] and integrate them into your application
+   1. create main email template file `emails/layout.blade.php` which then extends to the particular email blade file check blade files (emails/layout)[https://github.com/mklauco/pwa2-library/blob/main/resources/views/emails/layout.blade.php] and (emails/bookAdded)[https://github.com/mklauco/pwa2-library/blob/main/resources/views/emails/bookAdded.blade.php] and integrate them into your application
 
 ## Exercise/Homework
 1. Add `added_by` and `modified_by` to the `Books` model. Update all associated views and blades if necessary.
