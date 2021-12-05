@@ -17,11 +17,17 @@
   </i>
   
 </button>
-{{-- <ul class="c-header-nav d-md-down-none">
+<ul class="c-header-nav d-md-down-none">
   <li class="c-header-nav-item px-3">
-    <a class="c-header-nav-link" href="#">Some link...</a>
+    <a class="c-header-nav-link" href="https://coreui.io/docs/getting-started/introduction/"> CoreUI 3.4.0 Docs</a>
   </li>
-</ul> --}}
+  <li class="c-header-nav-item px-3">
+    <a class="c-header-nav-link" href="https://coreui.io/demo/free/3.4.0/icons/coreui-icons-free.html"> CoreUI Free Icons</a>
+  </li>
+  <li class="c-header-nav-item px-3">
+    <a class="c-header-nav-link" href="https://coreui.io/demo/free/3.4.0/"> CoreUI 3.4.0 Entire Template</a>
+  </li>
+</ul>
 
 <ul class="c-header-nav ml-auto mr-4">
   

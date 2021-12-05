@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Books;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BookAdded;
+
 use Session;
 
 class BooksController extends Controller
@@ -40,9 +43,10 @@ class BooksController extends Controller
     
     try {
       Books::create($request->all());
+      $emailAddress = 'martin.klauco@gmail.com';
+      Mail::to($emailAddress)->send(new BookAdded);
       Session::flash('success', __('books.saved'));
       return redirect('books');
-    // } catch (\Illuminate\Database\QueryException $e) {
     } catch (\Exception $e) {
       Session::flash('failure', $e->getMessage());
       return redirect()->back()->withInput();

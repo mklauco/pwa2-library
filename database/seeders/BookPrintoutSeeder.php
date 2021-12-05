@@ -16,6 +16,6 @@ class BookPrintoutSeeder extends Seeder
     public function run()
     {
         //
-        BookPrintout::factory(20)->create();
+        BookPrintout::factory(50)->create();
     }
 }
