@@ -16,9 +16,9 @@ class BookAdded extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -29,6 +29,6 @@ class BookAdded extends Mailable
     public function build()
     {
         return $this->from('development@pwa2library.io', 'Book Added')
-        ->view('emails.bookAdded');
+        ->view('emails.bookAdded')->with('data', $this->data);
     }
 }

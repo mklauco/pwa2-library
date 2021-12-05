@@ -40,11 +40,12 @@ class BooksController extends Controller
       'author'        => 'required|numeric',
     ];
     $validated = $request->validate($v);
-    
     try {
-      Books::create($request->all());
+      $b = Books::create($request->all());
       $emailAddress = 'martin.klauco@gmail.com';
-      Mail::to($emailAddress)->send(new BookAdded);
+      $data['bookTitle'] = $request->name;
+      $data['editRoute'] = route('books.edit', $b->id);
+      Mail::to($emailAddress)->send(new BookAdded($data));
       Session::flash('success', __('books.saved'));
       return redirect('books');
     } catch (\Exception $e) {
