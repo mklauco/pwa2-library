@@ -1,5 +1,6 @@
 # Exercise 6 (2021-12-06)
 1. Junior code review
+1. finish with [Loans MVC and Eloquent p.3](https://github.com/mklauco/pwa2-library#loans-mvc-and-eloquent-exercise-work)
 
 ## Excel exports (exercise)
 
@@ -40,6 +41,28 @@
    4. Add `Mail::to($emailAddress)->send(new BookAdded);` to the *store* method after `Books::create()` and include
       * `use Illuminate\Support\Facades\Mail;`
       * `use App\Mail\BookAdded;`
+1. Expand the blade view with a responsive html template, e.g. with [LINK](https://github.com/leemunroe/responsive-html-email-template)
+   1. expand the mailable class with passed parameters
+      * in the controller include
+      ```php
+      $emailAddress = 'martin.klauco@gmail.com';
+      $data['bookTitle'] = $request->name;
+      $data['editRoute'] = route('books.edit', $b->id);
+      Mail::to($emailAddress)->send(new BookAdded($data));
+      ```
+      * in the mailable include
+      ```php
+      public function __construct($data)
+      {
+         $this->data = $data;
+      }
+      ```
+      * and then use `return ...view(...)->with('data', $this->data)`.
+   1. create main email template file `emails/layout.blade.php` which then extends to the particular email blade file check blade files (emails/layout)[] and (emails/bookAdded)[] and integrate them into your application
+
+## Exercise/Homework
+1. Add `added_by` and `modified_by` to the `Books` model. Update all associated views and blades if necessary.
+1. Create a module of book genres editable by users, and link it to the Books model.
 
 # Exercise 5 (2021-11-29)
 ## Homework from Exercise 5
