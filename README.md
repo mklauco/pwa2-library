@@ -1,10 +1,45 @@
 # Exercise 6 (2021-12-06)
 1. Junior code review
-1. Installation of Excel exports in Laravel
-   1. visit (Laravel Excel)[https://laravel-excel.com/]
-   1. follow installation guide in (Laravel Excel installation)[https://docs.laravel-excel.com/3.1/getting-started/installation.html]
-   1. Follow the "5-minute quick start" from the documentation (Simple Excel Export)[https://docs.laravel-excel.com/3.1/exports/]
-   1. modify the procedure and export all books as in `books/index.blade.php` to excel via blade directives, documentation here (From View)[https://docs.laravel-excel.com/3.1/exports/from-view.html]. hint: you must prepare a new blade with a `<table>...</table>` without any styling
+
+## Excel exports (exercise)
+
+1. visit (Laravel Excel)[https://laravel-excel.com/]
+1. follow installation guide in (Laravel Excel installation)[https://docs.laravel-excel.com/3.1/getting-started/installation.html]
+1. Follow the "5-minute quick start" from the documentation (Simple Excel Export)[https://docs.laravel-excel.com/3.1/exports/]
+1. modify the procedure and export all books as in `books/index.blade.php` to excel via blade directives, documentation here (From View)[https://docs.laravel-excel.com/3.1/exports/from-view.html]. hint: you must prepare a new blade with a `<table>...</table>` without any styling
+
+## Sending emails (exercise)
+1. Link to email documentation (Emails in Laravel)[https://laravel.com/docs/8.x/mail]
+1. Basic configuration: 
+   1. create an *(Mailtrap.io)[https://mailtrap.io/]* account
+   1. setup the `.env` file with email credentials (e.g. with (Mailtrap.io)[https://mailtrap.io/])
+   ```
+   MAIL_MAILER=smtp
+   MAIL_HOST=smtp.mailtrap.io
+   MAIL_PORT=2525
+   MAIL_USERNAME=********
+   MAIL_PASSWORD=********
+   MAIL_ENCRYPTION=tls
+   ```
+   2. note, that Mailtrap.io service is just for development environment, for production system use other email transaction service, *DO NOT USE* your own SMTP servers or email services that come by/from webhosting, you will most probably have deliverability issues
+1. Task: Generate email notification when a new book is added to the database
+   1. create a mailable class `php artisan make:mail BookAdded`
+   2. add to the mailable class the following
+   ```php
+      return $this->from('development@pwa2library.io', 'Book Added')
+      ->view('emails.bookAdded');
+   ```
+   3. Create a simple blade file with the following
+   ```html
+   <html>
+      <body>
+         <h1>Book added</h1>
+      </body>
+   </html>
+   ```
+   4. Add `Mail::to($emailAddress)->send(new BookAdded);` to the *store* method after `Books::create()` and include
+      * `use Illuminate\Support\Facades\Mail;`
+      * `use App\Mail\BookAdded;`
 
 # Exercise 5 (2021-11-29)
 ## Homework from Exercise 5
