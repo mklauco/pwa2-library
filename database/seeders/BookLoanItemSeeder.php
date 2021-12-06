@@ -16,6 +16,6 @@ class BookLoanItemSeeder extends Seeder
     public function run()
     {
         //
-        BookLoanItem::factory(5)->create();
+        BookLoanItem::factory(20)->create();
     }
 }

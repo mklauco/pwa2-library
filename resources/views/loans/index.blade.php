@@ -12,6 +12,27 @@
         </div>
         
         <div class="card-body">
+          {{-- definitions list / statistika --}}
+          <dl class="row">
+            <dt class="col-sm-3">Loan count:</dt>
+            <dd class="col-sm-9">{{$share['loanCount']}}</dd>
+
+            <dt class="col-sm-3">Date of earliest loaned book</dt>
+            <dd class="col-sm-9">{{$share['earliestLoan']}}</dd>
+         
+            <dt class="col-sm-3">Date of latest returned book</dt>
+            <dd class="col-sm-9">{{$share['latestReturn']}}</dd>
+         
+            <dt class="col-sm-3">Book with the highest loan count:</dt>
+            <dd class="col-sm-9">{{$share['highestLoanCount']}}</dd>
+         
+            <dt class="col-sm-3">User with the highest loan count:</dt>
+            <dd class="col-sm-9">{{$share['userHighestCount']}}</dd>
+         
+            <dt class="col-sm-3">Number of books with longer than 30-day return period:</dt>
+            <dd class="col-sm-9">{{$share['loanLength30']}}</dd> 
+         </dl>
+
           <a href="{{route('book.report.simplePDF')}}">Download report</a>
           {{-- User name, Book Title, Loaned at, Returned at, Loan length --}}
           <div class="row">
