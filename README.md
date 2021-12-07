@@ -1,4 +1,11 @@
-# Exercise 6 (2021-12-06)
+# Exercise 7 (2021-12-13)
+1. Junior code review.
+1. GIT and team-work.
+1. Deployment on webhosting.
+1. Final project.
+1. Questions & answers.
+
+# Exercise 9 (2021-12-06)
 1. Junior code review
 1. finish with [Loans MVC and Eloquent p.3](https://github.com/mklauco/pwa2-library#loans-mvc-and-eloquent-exercise-work)
 
