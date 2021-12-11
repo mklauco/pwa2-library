@@ -1,4 +1,40 @@
-# Exercise 6 (2021-12-06)
+# Exercise 7 (2021-12-13)
+1. Junior code review.
+1. GIT - general rules for Laravel team development
+   1. branches
+      * `git checkout -b development`
+      * `git checkout -b staging`
+      * pull request from features to development for other team members
+      * pull request from development to staging for extensive testing
+      * pull request from staging to main for production
+   1. features
+      * always create new branch for *development* branch, never from another feature branch
+      ```git
+      git checkout development
+      git pull
+      git checkout -b feature/NAME-OF-THE-FEATURE
+      # do the stuff
+      git add -A; git commit -am "ALWAYS PUT THE MESSAGE"
+      git push 
+      ```
+      * create a pull request from feature to development branch at github page
+      * to work on another feature switch back to development branch
+1. GIT and team-work exercise
+   1. Student 1: GitHub master & coordinator
+   1. Student 2: install a new Laravel app with *laravel-ui* package
+   1. Student 3: prepares/updates UsersFactory and UsersSeeder (50 users) with a new `address` field
+   1. Student 4: *index/create/edit* views for Users
+   1. Student 5: Book Model with `['book_title', 'date_added', 'added_by']` BooksFactory and BooksSeeder (100 books)
+   1. Student 6: BookController with `index`, `create`, `edit` methods
+   1. Student 7: *index/create/edit* view for Books
+   1. Student 8: `store` and `update` methods for Books
+   1. Student 9: *SoftDeletes* for books with `destroy` method
+   1. Student 10: general admin account, that is seeded first
+1. Deployment on webhosting.
+1. Final project presentation.
+1. Questions & answers.
+
+# Exercise 9 (2021-12-06)
 1. Junior code review
 1. finish with [Loans MVC and Eloquent p.3](https://github.com/mklauco/pwa2-library#loans-mvc-and-eloquent-exercise-work)
 
